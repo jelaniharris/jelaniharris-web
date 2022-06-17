@@ -1,0 +1,154 @@
+@charset "utf-8";
+@import './variables.scss';
+@import "~bulma/bulma";
+
+// The global style
+
+body {
+  font-size: 1.25rem;
+}
+
+.header {
+  background-color: $header-footer-background;
+}
+
+header .title {
+  color: $post-title-color;
+}
+
+.breadcrumbs {
+  color: $breadcrumbs-color;
+}
+
+.navbar {
+  background-color: $header-footer-background;
+  height: 5.5rem;
+
+  .navbar-item img {
+    max-height: 5rem;
+  }
+}
+
+.pre-main {
+  background-color: $pre-main-color;
+  padding-top: 21px;
+  padding-bottom: 21px;
+  border-bottom: 1px solid $pre-main-border;
+}
+
+.pre-footer {
+  background-color: $pre-footer-background;
+  padding-bottom: 30px;
+  min-height: 250px;
+  color: $footer-font-color;
+}
+
+.copyright-social {
+  color: $footer-font-color;
+  background-color: $header-footer-background;
+  border-top: 1px solid #282b39;
+  padding: 30px 0 30px 0;
+}
+
+main {
+  min-height: calc(100vh - 88px);
+}
+
+.recent-post-entry {
+  border-bottom: 1px solid #243240;
+  margin: 0 0 15px 0;
+  padding: 0 0 20px 0;
+}
+
+.recent-post-entry:last-child {
+  border-bottom: none;
+}
+
+/*comment block*/
+#blog-comments {
+  background-color: $pre-main-color;
+  padding-top: 21px;
+  padding-bottom: 21px;
+  border-top: 1px solid $pre-main-border;
+}
+
+/* Header */
+.navbar-menu {
+
+  a {
+    color: #FFF;
+    padding: 20px 0px 32px 0px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  a.header-link-home {
+    text-transform: uppercase;
+    border-top: 8px solid rgba(0,0,0,0);
+  }
+  
+  a.header-link-home:hover {
+    color: $navbar-link-hover-color;
+    border-top: 8px solid $navbar-link-hover-color !important;
+  }
+}
+
+/* Blog Post */
+.blog-post {
+  header {
+    border-bottom: 2px solid #DDD;
+  }
+}
+
+
+/* Footer */
+#f_social_icons {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 30px 30px 30px;
+}
+
+/* Card Header */
+
+.card-header {
+  padding: 0.5rem;
+  text-transform: uppercase;
+}
+
+.card-header-blog {
+  background-color: $card-header-blog-bg-color;
+  color: $card-header-blog-text-color;
+}
+
+/* Masonry */
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  margin-bottom: 30px;
+}
+
+footer.page-footer {
+  .title { 
+    color: $footer-title-color;
+  }
+
+  a {
+    color: $footer-link-color;
+  }
+}

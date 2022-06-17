@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    command: ./entrypoint.sh
+    ports:
+      - "8000:8000"
+      - "9929:9929"
+      - "9230:9230"
+    volumes:
+      - ./src:/app/src
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./.env
