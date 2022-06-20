@@ -3,7 +3,7 @@ title: How to extend types in Typescript
 date: "2011-08-21T22:12:03.284Z"
 tags: ["javascript", "typescript"]
 featuredImage: ./images/pexels-kevin-ku-577585.jpg
-featuredAlt: Photo by Kevin Ku: https://www.pexels.com/photo/data-codes-through-eyeglasses-577585/
+featuredAlt: "Photo by Kevin Ku: https://www.pexels.com/photo/data-codes-through-eyeglasses-577585/"
 ---
 
 We can extend types in Typescript by using the extends keyword
