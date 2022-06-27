@@ -76,6 +76,86 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+              buildTime(formatString: "YYYY-MM-DD")
+            }
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+            allMarkdownRemark {
+              nodes {
+                id
+                fields {
+                  slug
+                }
+                frontmatter {
+                  date
+                }
+              }
+            }
+          }
+        `,
+        resolveSiteUrl: () => 'https://jelaniharris.com',
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allMarkdownRemark: { nodes: allPosts },
+        }) => {
+
+          let pages = [];
+
+          allPages.map(page => {
+            pages.push({
+              path: page.path,
+            })
+          });
+
+          allPosts.map(post => {
+            pages.push({
+              path: post.fields.slug,
+              date: post.frontmatter.date
+            })
+          });
+
+          return pages;
+
+          /*const wpNodeMap = allMarkdownRemark.reduce((acc, node) => {
+            const { uri } = node.fields.slug
+            acc[uri] = node
+
+            return acc
+          }, {})
+
+          return allPages.map(page => {
+            return { ...page, ...wpNodeMap[page.path] }
+          })*/
+        },
+        serialize: ({ path, date }) => {
+          let entry = {
+            url: path,
+            changefreq: 'weekly',
+            priority: 0.5
+          };
+
+          if (date) {
+            entry.priority = 0.7;
+            entry.lastmod = date;
+          }
+
+          return entry;
+        },
+      }
+    },
+    
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
