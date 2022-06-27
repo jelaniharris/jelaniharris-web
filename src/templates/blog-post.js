@@ -16,6 +16,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = `${post.frontmatter.title || 'Blog Post'} | ${data.site.siteMetadata?.title || "Title"}`;
   let featuredImgFluid = post.frontmatter.featuredImage?.childImageSharp?.fluid
+  const featuredAlt = post.frontmatter.featuredAlt || null;
   const tags = post.frontmatter.tags || [];
   const { previous, next } = data
   const url = typeof window !== 'undefined' ? window.location.href : '';
@@ -69,7 +70,12 @@ const BlogPostTemplate = ({ data, location }) => {
             </p>
           </header>
           
-          <Img fluid={featuredImgFluid} />
+          <div className="post-image mb-3">
+            <Img fluid={featuredImgFluid} />
+            {!!featuredAlt &&
+              <span>{featuredAlt}</span>
+            }
+          </div>
           <section
             className="content"
             dangerouslySetInnerHTML={{ __html: post.html }}
@@ -150,6 +156,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         tags
+        featuredAlt
         featuredImage {
           childImageSharp {
             fluid(maxWidth: 800) {

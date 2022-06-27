@@ -10,7 +10,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const About = ({location}) => {
     return (
-        <Layout location={location} title={"Projects"} preMain={
+        <Layout location={location} title={"About"} preMain={
             <PreMain additionalClasses="breadcrumbs">
               <nav className="breadcrumb is-medium" aria-label="breadcrumbs">
                 <ul>
@@ -25,8 +25,8 @@ const About = ({location}) => {
             </PreMain>
         }>
             <Seo
-                title={"Projects"}
-                description={"Projects made by me"}
+                title={"About"}
+                description={"About myself"}
             />
             <article
                 className="webpage content"

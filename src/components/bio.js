@@ -46,7 +46,7 @@ const Bio = () => {
               alt="Profile picture"
             />
           </figure>
-          <div class="media-content">
+          <div className="media-content">
             {author?.name && (
               <p>
                 Written by <strong>{author.name}</strong> {author?.summary || null}

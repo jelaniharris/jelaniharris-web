@@ -104,6 +104,11 @@ main {
   }
 }
 
+/* Masonry Grid */
+.my-masonry-grid {
+  padding: 10px;
+}
+
 
 /* Footer */
 #f_social_icons {
@@ -122,6 +127,11 @@ main {
 .card-header-blog {
   background-color: $card-header-blog-bg-color;
   color: $card-header-blog-text-color;
+}
+
+.card-header-tweet {
+  background-color: $card-header-tweet-bg-color;
+  color: $card-header-tweet-text-color;
 }
 
 /* Masonry */
@@ -152,3 +162,22 @@ footer.page-footer {
     color: $footer-link-color;
   }
 }
+
+.post-image {
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.post-image img {
+  max-height: 500px;
+  object-fit: cover;
+}
+
+// Fix the tag size being too small
+.gatsby-highlight {
+  .tag {
+    font-size: inherit !important;
+  }
+}
+
+.token.number, .token.tag { all: inherit; }
