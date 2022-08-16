@@ -3,6 +3,7 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faLinkedin} from '@fortawesome/free-brands-svg-icons';
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import SocialIcons from "./social-icons";
 
 const Footer = () => {
   const data = useStaticQuery(graphql`
@@ -62,7 +63,7 @@ const Footer = () => {
             <figure className="media-left">
               {ImageElement}
             </figure>
-            <div className="media-right is-flex-shrink-1">
+            <div className="media-content">
               <Link className="is-size-5" to={postData.fields.slug}>{postData.frontmatter.title}</Link>
               <p className="is-size-6">{postData.frontmatter.description || postData.excerpt}</p>
               <p className="is-size-6">{postData.frontmatter.date}</p>
@@ -75,7 +76,9 @@ const Footer = () => {
     return (
       <>
         <h3 className="title is-3">Recent Posts</h3>
-        {posts.map(post => renderPost(post))}
+        <div className="recent-posts is-flex is-flex-direction-row is-flex-wrap-wrap">
+          {posts.map(post => renderPost(post))}
+        </div>
       </>
     )
   }
@@ -84,13 +87,7 @@ const Footer = () => {
     <footer className="page-footer">
       <div className="pre-footer py-3">
         <section className="container">
-          <div className="columns">
-            <div className="column is-6">
-              <RecentPosts posts={nodes}/>
-            </div>
-            <div className="column is-6">
-            </div>
-          </div>
+          <RecentPosts posts={nodes}/>
         </section>
       </div>
       <div className="copyright-social p-4">
@@ -107,16 +104,8 @@ const Footer = () => {
               | All Rights Reserved
             </span>
           </div>
-          <div className="" id="f_social_icons">
-            <a href="https://www.facebook.com/jelaniharris" target="_blank" rel="noreferrer">
-              <FontAwesomeIcon icon={faFacebook} />
-            </a>
-            <a href="https://twitter.com/jelaniharris" target="_blank" rel="noreferrer">
-            <FontAwesomeIcon icon={faTwitter} />
-              </a>
-            <a href="https://www.linkedin.com/in/jelaniharris/" target="_blank" rel="noreferrer">
-            <FontAwesomeIcon icon={faLinkedin} />
-            </a>
+          <div className="" >
+            <SocialIcons id="f_social_icons" />
           </div>
           </div>
         </section>

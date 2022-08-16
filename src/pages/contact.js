@@ -32,7 +32,7 @@ const Contact = ({location}) => {
                 itemScope
                 itemType="http://schema.org/WebPage"
             >
-                <h1 className="title is-1" itemProp="headline">Contact Me</h1>
+                <h1 className="title is-1 pt-5" itemProp="headline">Contact Me</h1>
                 <form name="contact-form" method="POST" action="/thank-you" data-netlify="true" data-netlify-recaptcha="true">
                     <input type="hidden" name="form-name" value="Contact Form" />
                     <div className="columns">

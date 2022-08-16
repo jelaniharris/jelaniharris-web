@@ -11,6 +11,9 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 
 import  { TwitterTweetEmbed } from 'react-twitter-embed';
+import HeroMe from "../components/home/hero-me"
+import HeroProjects from "../components/home/hero-projects"
+import HeroTechnologies from "../components/home/hero-technologies"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -18,10 +21,10 @@ const BlogIndex = ({ data, location }) => {
   const tweets = data.allTwitterStatusesUserTimelineRecentTweets.nodes
 
   const breakpointColumnsObj = {
-    default: 5,
-    1100: 3,
-    700: 2,
-    500: 1
+    default: 4,
+    1300: 3,
+    1100: 2,
+    700: 1
   };
 
   if (posts.length === 0) {
@@ -136,27 +139,36 @@ const BlogIndex = ({ data, location }) => {
     })
   });
 
-
   // Then sort contents by the array
   contents = contents.sort((a, b) => (b.created_at_date - a.created_at_date));
+
+  const contentElements = contents.map((data, index) => {
+    if (data.type === 'blog') {
+      return <BlogPost content={data} key={`content-${index}`} />
+    } else if (data.type === 'tweet') {
+      return <TwitterPost data={data} key={`content-${index}`} />
+    }
+    return <></>;
+  });
 
   return (
     <Layout location={location} title={siteTitle} noContainer={true}>
       <Seo title="Home" />
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {contents.map((data, index) => {
-          if (data.type === 'blog') {
-            return <BlogPost content={data} key={`content-${index}`} />
-          } else if (data.type === 'tweet') {
-            return <TwitterPost data={data} key={`content-${index}`} />
-          }
-        })}
-      </Masonry>
-      <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+      <HeroMe />
+      <HeroTechnologies />
+      <div className="recent-activity">
+        <div className="has-text-centered pt-4">
+          <h2 className="title is-2">Recent Activity</h2>
+        </div>
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {contentElements}
+        </Masonry>
+        <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+      </div>
     </Layout>
   )
 }

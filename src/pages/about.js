@@ -29,7 +29,7 @@ const About = ({location}) => {
                 description={"About myself"}
             />
             <article
-                className="webpage content"
+                className="webpage content py-5"
                 itemScope
                 itemType="http://schema.org/WebPage"
             >

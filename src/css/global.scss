@@ -29,6 +29,69 @@ header .title {
   }
 }
 
+.front-hero {
+  color: $front-hero-text-color;
+
+  .title {
+    color: $front-hero-text-color;
+  }
+  .subtitle {
+    color: $front-hero-text-subtitle-color;
+  }
+
+  a {
+    color: $front-hero-link-color;
+    &:hover {
+      color: $front-hero-link-hover-color;
+    }
+  }
+}
+
+.front-hero-me {
+  @extend .front-hero;
+  background-color: $front-hero-background;
+  .social-icons {
+    font-size: 3rem;
+    a {
+      margin-right: 1rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    margin-bottom: 1rem;
+  }
+}
+
+.front-hero-projects {
+  @extend .front-hero;
+  background-color: $front-hero-projects-background;
+}
+
+.front-hero-technologies {
+  @extend .front-hero;
+  background-color: $front-hero-technologies-background;
+  .column-content {
+    background-color: $front-hero-technologies-column-background;
+    border-radius: 15px;
+    padding: 15px;
+    @include tablet {
+      min-height: 200px;
+    }
+  }
+}
+
+.recent-activity {
+  .title {
+    color: $recent-activity-title-color;
+  }
+  a {
+    color: $recent-activity-link-color;
+    &:hover {
+      color: $recent-activity-link-hover-color;
+    }
+  }
+}
+
 .pre-main {
   background-color: $pre-main-color;
   padding-top: 21px;
@@ -58,10 +121,13 @@ main {
   border-bottom: 1px solid #243240;
   margin: 0 0 15px 0;
   padding: 0 0 20px 0;
-}
-
-.recent-post-entry:last-child {
-  border-bottom: none;
+  width: 50%;
+  @include until-widescreen {
+    width: 100%;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 /*comment block*/
@@ -114,11 +180,12 @@ main {
 #f_social_icons {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: 30px 30px 30px;
+  grid-template-columns: 30px 30px 30px 30px;
 }
 
-/* Card Header */
 
+
+/* Card Header */
 .card-header {
   padding: 0.5rem;
   text-transform: uppercase;

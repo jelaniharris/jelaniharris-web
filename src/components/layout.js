@@ -22,7 +22,7 @@ const Layout = ({ location, title, children, preMain, noContainer = false }) => 
       <Header location={location} title={title} />
       <main>
         {preMain}
-        <div className="pt-5">
+        <div>
         {childrenElement}
         </div>
       </main>

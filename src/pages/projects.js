@@ -31,7 +31,7 @@ const Projects = ({location}) => {
                 description={"Projects made by me"}
             />
             <article
-                className="webpage content"
+                className="webpage content py-5"
                 itemScope
                 itemType="http://schema.org/WebPage"
             >

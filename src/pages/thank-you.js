@@ -28,7 +28,7 @@ const ThankYou = ({location}) => {
                 description={"Thank you for contacting me"}
             />
             <article
-                className="webpage content"
+                className="webpage content pt-5"
                 itemScope
                 itemType="http://schema.org/WebPage"
             >
