@@ -11,19 +11,19 @@ const HeroTechnologies = () => {
 
           <section className="block has-text-centered">
             <h2 className="title is-2">Technologies</h2>
-            <p className="subtitle">I've worked with a very large range of technologies in the development world</p>
+            <p className="subtitle">I've worked with a large range of technologies in the development world</p>
           </section>
           <div className="columns">
             <div className="column">
               <div className="column-content">
                 <h4 className="title is-4"><FontAwesomeIcon icon={faReact} /> Front-End</h4>
-                <p>HTML, CSS, SASS, Javascript, React, Redux</p>
+                <p>HTML, CSS, SASS, Javascript, React, Redux, MobX</p>
               </div>
             </div>
             <div className="column">
               <div className="column-content">
                 <h4 className="title is-4"><FontAwesomeIcon icon={faDatabase} /> Back-End</h4>
-                <p>Node.Js, ExpressJs, NestJs, PHP, Rails/Ruby, Postgres, MySql, OracleSql, MSSql, Python, Apache / NingX</p>
+                <p>Node.Js, ExpressJs, NestJs, PHP, Laravel, Rails/Ruby, Postgres, MySql, OracleSql, MSSql, Python, Apache / NingX</p>
               </div>
             </div>
             <div className="column">
