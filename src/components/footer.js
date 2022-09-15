@@ -1,7 +1,5 @@
 import * as React from "react"
 import { graphql, Link, useStaticQuery } from "gatsby";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faLinkedin} from '@fortawesome/free-brands-svg-icons';
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import SocialIcons from "./social-icons";
 
