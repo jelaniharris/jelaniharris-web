@@ -93,12 +93,14 @@ const BlogPostTemplate = ({ data, location }) => {
             <h1 className="title is-1" itemProp="headline">{post.frontmatter.title}</h1>
             <p className="subtitle is-5 ml-1">
               <span className="mr-3">{post.frontmatter.date}</span>
+              <meta itemProp="url" content={url} />
               <span><ShowTags tags={tags} /></span>
             </p>
           </header>
           
           <div className="post-image mb-3">
-            <Img fluid={featuredImgFluid} itemProp="image"/>
+            <meta itemProp="image" content={originalImage ? originalImage.src : ''} />
+            <Img fluid={featuredImgFluid} />
             {!!featuredAlt &&
               <span>{featuredAlt}</span>
             }
