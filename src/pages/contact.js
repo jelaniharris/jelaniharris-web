@@ -38,43 +38,43 @@ const Contact = ({location}) => {
                     <div className="columns">
                         <div className="column">
                             <div className="field">
-                                <label className="label is-medium">Name*</label>
+                                <label htmlFor="name" className="label is-medium">Name*</label>
                                 <div className="control has-icons-left">
-                                    <input required className="input is-medium" name="name" type="text" placeholder="e.g. Jelani Harris" />
-                                    <span class="icon is-small is-left">
+                                    <input required id="name" className="input is-medium" name="name" type="text" placeholder="e.g. Jelani Harris" />
+                                    <span className="icon is-small is-left">
                                         <FontAwesomeIcon icon={faPerson} />
                                     </span>
                                 </div>
                             </div>
                             <div className="field">
-                                <label className="label is-medium">Email*</label>
+                                <label htmlFor="email" className="label is-medium">Email*</label>
                                 <div className="control has-icons-left">
-                                    <input required className="input is-medium" name="email" type="text" placeholder="e.g. jharris@gooooogle.com" />
-                                    <span class="icon is-small is-left">
+                                    <input required id="email" className="input is-medium" name="email" type="text" placeholder="e.g. jharris@gooooogle.com" />
+                                    <span className="icon is-small is-left">
                                         <FontAwesomeIcon icon={faEnvelope} />
                                     </span>
                                 </div>
                             </div>
                             <div className="field">
-                                <label className="label is-medium">Subject*</label>
+                                <label htmlFor="subject" className="label is-medium">Subject*</label>
                                 <div className="control has-icons-left">
-                                    <input required className="input is-medium" name="subject" type="text" placeholder="e.g. Business" />
-                                    <span class="icon is-small is-left">
+                                    <input required id="subject" className="input is-medium" name="subject" type="text" placeholder="e.g. Business" />
+                                    <span className="icon is-small is-left">
                                         <FontAwesomeIcon icon={faBars} />
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div className="column">
-                            <div class="field">
-                                <label class="label is-medium">Message*</label>
-                                <div class="control">
-                                    <textarea required name="message" class="textarea is-medium" placeholder="Enter your message here ..."></textarea>
+                            <div className="field">
+                                <label htmlFor="message" className="label is-medium">Message*</label>
+                                <div className="control">
+                                    <textarea required id="message" name="message" className="textarea is-medium" placeholder="Enter your message here ..."></textarea>
                                 </div>
                             </div>
-                            <div class="field is-grouped is-flex is-justify-content-center">
-                                <div class="control">
-                                    <button class="button is-link is-medium is-fullwidth">Submit</button>
+                            <div className="field is-grouped is-flex is-justify-content-center">
+                                <div className="control">
+                                    <button className="button is-link is-medium is-fullwidth">Submit</button>
                                 </div>
                             </div>
                         </div>
