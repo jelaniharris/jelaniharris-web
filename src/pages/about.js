@@ -26,7 +26,7 @@ const About = ({location}) => {
         }>
             <Seo
                 title={"About"}
-                description={"About myself"}
+                description={"Information that you may want to know about myself"}
             />
             <article
                 className="webpage content py-5"

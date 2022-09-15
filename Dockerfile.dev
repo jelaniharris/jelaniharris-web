@@ -10,4 +10,4 @@ RUN npm install --arch=x64 --platform=linux --legacy-peer-deps
 COPY . /app
 
 RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
-CMD ["gatsby", "develop", "-H", "0.0.0.0" ]
+#CMD ["gatsby", "develop", "-H", "0.0.0.0" ]

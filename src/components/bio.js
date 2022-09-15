@@ -49,7 +49,7 @@ const Bio = () => {
           <div className="media-content">
             {author?.name && (
               <p>
-                Written by <strong>{author.name}</strong> {author?.summary || null}
+                Written by <strong itemProp="author">{author.name}</strong> {author?.summary || null}
                 {` `}
                 <a href={`https://twitter.com/${social?.twitter || ``}`}>
                   You should follow them on Twitter

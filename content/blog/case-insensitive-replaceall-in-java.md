@@ -1,6 +1,7 @@
 ---
 title: Case-insensitive replaceAll in Java
 date: "2009-09-10T22:12:03.284Z"
+description: "How to use a case-insensitive replaceAll in javascript"
 tags: ["java", "regex"]
 ---
 

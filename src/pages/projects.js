@@ -28,7 +28,7 @@ const Projects = ({location}) => {
         }>
             <Seo
                 title={"Projects"}
-                description={"Projects made by me"}
+                description={"Projects made by me in the past, or ones I'm currently working on"}
             />
             <article
                 className="webpage content py-5"

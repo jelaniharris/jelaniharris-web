@@ -16,6 +16,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = `${post.frontmatter.title || 'Blog Post'} | ${data.site.siteMetadata?.title || "Title"}`;
   let featuredImgFluid = post.frontmatter.featuredImage?.childImageSharp?.fluid
+  let originalImage = post.frontmatter.featuredImage?.childImageSharp?.original;
   const featuredAlt = post.frontmatter.featuredAlt || null;
   const tags = post.frontmatter.tags || [];
   const { previous, next } = data
@@ -55,6 +56,32 @@ const BlogPostTemplate = ({ data, location }) => {
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
+        ogType="article"
+        image={{
+          width: originalImage ? originalImage.width : '',
+          height: originalImage ? originalImage.height : '',
+          src: originalImage ? `${data.site.siteMetadata.siteUrl}${originalImage.src}` : null
+        }}
+        pageKeywords={tags}
+        url={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
+        article={[
+          {
+            property: `article:published_time`,
+            content: post.frontmatter.date,
+          },
+          {
+            property: `article:modified_time`,
+            content: post.frontmatter.date,
+          },
+          {
+            property: `article:author`,
+            content: data.site.siteMetadata?.author?.name,
+          },
+          {
+            property: `article:tag`,
+            content: tags && tags.length > 0 ? tags.join(", ") : data.site.siteMetadata?.keywords.join(", "),
+          },
+        ]}
       />
       <div className="container pt-3">
         <article
@@ -71,7 +98,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </header>
           
           <div className="post-image mb-3">
-            <Img fluid={featuredImgFluid} />
+            <Img fluid={featuredImgFluid} itemProp="image"/>
             {!!featuredAlt &&
               <span>{featuredAlt}</span>
             }
@@ -141,7 +168,12 @@ export const pageQuery = graphql`
   ) {
     site {
       siteMetadata {
-        title
+        keywords,
+        title,
+        siteUrl,
+        author {
+          name
+        }
       }
     }
     markdownRemark(id: { eq: $id }) {
@@ -150,6 +182,7 @@ export const pageQuery = graphql`
       html
       fields {
         uniqueid
+        slug
       }
       frontmatter {
         title
@@ -159,6 +192,11 @@ export const pageQuery = graphql`
         featuredAlt
         featuredImage {
           childImageSharp {
+            original {
+              src,
+              width,
+              height,
+            }
             fluid(maxWidth: 800) {
               ...GatsbyImageSharpFluid
             }

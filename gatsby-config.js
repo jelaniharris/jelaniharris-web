@@ -5,13 +5,14 @@ module.exports = {
     title: `Jelani Harris`,
     author: {
       name: `Jelani Harris`,
-      summary: `who lives and works in Wisconsin building useful things.`,
+      summary: `who lives and works in Wisconsin building useful things, and thinks that pineapple on pizza is okay.`,
     },
     description: `A place of all things Jelani Harris`,
+    keywords: ['programming', 'coding', 'developer', 'full-stack'],
     siteUrl: `https://jelaniharris.com/`,
-    imageUrl: `https://jelaniharris.com/public/logo.png`,
+    imageUrl: `/static/images/logo.png`,
     social: {
-      twitter: `jelaniharris`,
+      twitter: `@jelaniharris`,
     },
   },
   plugins: [
@@ -210,7 +211,7 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
-            title: "Gatsby Starter Blog RSS Feed",
+            title: "Jelani Harris Blog RSS Feed",
           },
         ],
       },
@@ -226,7 +227,8 @@ module.exports = {
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/favicon.png`,
+        include_favicon: false,
       },
     },
     `gatsby-plugin-react-helmet`,

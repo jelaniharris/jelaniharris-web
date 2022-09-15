@@ -52,11 +52,6 @@ const BlogIndex = ({ data, location }) => {
           <div className="card-content">
             <TwitterTweetEmbed tweetId={data.id} />
           </div>
-          <div className="card-footer">
-              <div className="card-footer-item">
-              </div>
-              <small className="card-footer-item" itemProp="dateCreated">{data.created_at}</small>
-            </div>
         </div>
       </div>
     )

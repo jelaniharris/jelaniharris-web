@@ -5,13 +5,13 @@ import { faReact } from "@fortawesome/free-brands-svg-icons";
 
 const HeroTechnologies = () => {
     return (
-        <section className="hero is-small front-hero-technologies">
+        <section className="hero is-medium front-hero-technologies">
         <div className="hero-body">
         <div className="container">
 
           <section className="block has-text-centered">
             <h2 className="title is-2">Technologies</h2>
-            <p className="subtitle">I've worked with a large range of technologies in the development world</p>
+            <p className="subtitle">I've worked with a large range of technologies in my career and personal projects.</p>
           </section>
           <div className="columns">
             <div className="column">
@@ -28,7 +28,7 @@ const HeroTechnologies = () => {
             </div>
             <div className="column">
               <div className="column-content">
-                <h4 className="title is-4"><FontAwesomeIcon icon={faCloud} /> Cloud</h4>
+                <h4 className="title is-4"><FontAwesomeIcon icon={faCloud} /> Infrastructure</h4>
                 <p>AWS, Heroku, Digital Ocean</p>
               </div>
             </div>

@@ -25,7 +25,7 @@ const Contact = ({location}) => {
         }>
             <Seo
                 title={"Contact"}
-                description={"Contact Me"}
+                description={"Contact Me by using the handy form"}
             />
             <article
                 className="webpage content"
