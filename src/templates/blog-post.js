@@ -8,8 +8,9 @@ import Seo from "../components/seo"
 import PreMain from "../components/premain"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faHome } from '@fortawesome/free-solid-svg-icons';
 import { Disqus } from 'gatsby-plugin-disqus';
+import ShowTags from "../components/common/showTags"
 
 
 const BlogPostTemplate = ({ data, location }) => {
@@ -22,21 +23,6 @@ const BlogPostTemplate = ({ data, location }) => {
   const { previous, next } = data
   const url = typeof window !== 'undefined' ? window.location.href : '';
 
-  const ShowTags = ({tags}) => {
-    if (tags.length > 0) {
-      return (
-        <>
-          Tagged: {
-          tags.map(tag => 
-            <span className="mr-1 tag is-small" key={`tag-${tag}`}>{tag}</span>
-          )
-          }
-        </>
-      )
-    }
-    return "";
-  }
-
   return (
     <Layout location={location} title={siteTitle} noContainer preMain={
       <PreMain additionalClasses="breadcrumbs">
@@ -47,7 +33,15 @@ const BlogPostTemplate = ({ data, location }) => {
               <FontAwesomeIcon icon={faHome} />
             </span>
               Home</Link></li>
-            <li className="is-active"><a href="#" aria-current="page">{post.frontmatter.title}</a></li>
+              <li>
+              <Link to="/blog">
+                <span className="icon is-small">
+                  <FontAwesomeIcon icon={faComment} />
+                </span>
+                Blog
+                </Link>
+              </li>
+            <li className="is-active" aria-current="page"><span>{post.frontmatter.title}</span></li>
           </ul>
         </nav>
       </PreMain>
@@ -89,13 +83,13 @@ const BlogPostTemplate = ({ data, location }) => {
           itemScope
           itemType="http://schema.org/Article"
         >
-          <header class="mb-5 pb-3">
+          <header className="mb-5 pb-3">
             <h1 className="title is-1" itemProp="headline">{post.frontmatter.title}</h1>
-            <p className="subtitle is-5 ml-1">
-              <span className="mr-3">{post.frontmatter.date}</span>
+            <div className="subtitle is-5 ml-1 is-flex is-justify-content-space-between">
+              <time dateTime={post.frontmatter.formatdate} className="mr-3">{post.frontmatter.date}</time>
               <meta itemProp="url" content={url} />
               <span><ShowTags tags={tags} /></span>
-            </p>
+            </div>
           </header>
           
           <div className="post-image mb-3">
@@ -117,13 +111,6 @@ const BlogPostTemplate = ({ data, location }) => {
         </article>
         <nav className="blog-post-nav my-5">
           <ul
-            style={{
-              display: `flex`,
-              flexWrap: `wrap`,
-              justifyContent: `space-between`,
-              listStyle: `none`,
-              padding: 0,
-            }}
           >
             <li>
               {previous && (
@@ -189,6 +176,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        formatdate : date(formatString: "YYYY-MM-DD")
         description
         tags
         featuredAlt

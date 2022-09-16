@@ -1,11 +1,13 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const _ = require("lodash")
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
   // Define a template for blog post
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const blogTag = path.resolve(`./src/templates/blog-tag.js`)
 
   // Get all markdown blog posts sorted by date
   const result = await graphql(
@@ -61,6 +63,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+  // Create blog tag pages
+  const tags = result.data.tagsGroup.group;
+  tags.forEach(tag => {
+    createPage({
+      path: `/blog/tag/${_.kebabCase(tag.fieldValue)}/`,
+      component: blogTag,
+      context: {
+        tag: tag.fieldValue,
+      },
+    })
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -95,8 +109,12 @@ exports.createSchemaCustomization = ({ actions }) => {
   // blog posts are stored inside "content/blog" instead of returning an error
   createTypes(`
     type SiteSiteMetadata {
+      title: String
       author: Author
+      description: String
+      keywords: [String]
       siteUrl: String
+      imageUrl: String
       social: Social
     }
 

@@ -18,7 +18,7 @@ const Contact = ({location}) => {
                     <FontAwesomeIcon icon={faHome} />
                   </span>
                     Home</Link></li>
-                  <li className="is-active"><a href="#" aria-current="page">Contact Me</a></li>
+                  <li className="is-active" aria-current="page"><span>Contact Me</span></li>
                 </ul>
               </nav>
             </PreMain>

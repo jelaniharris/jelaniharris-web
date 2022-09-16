@@ -39,6 +39,7 @@
     "gatsby-source-twitter": "^4.0.1",
     "gatsby-transformer-remark": "^5.13.0",
     "gatsby-transformer-sharp": "^4.13.0",
+    "lodash": "^4.17.21",
     "netlify-cms-app": "^2.15.72",
     "prismjs": "^1.28.0",
     "react": "^17.0.1",

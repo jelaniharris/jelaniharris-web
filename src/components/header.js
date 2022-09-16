@@ -40,6 +40,9 @@ const Header = ({location, title}) => {
             <Link className="header-link-home" to="/">Home</Link>
           </div>
           <div className="navbar-item is-hoverable">
+            <Link className="header-link-home" to="/blog">Blog</Link>
+          </div>
+          <div className="navbar-item is-hoverable">
             <Link className="header-link-home" to="/projects">Projects</Link>
           </div>
           <div className="navbar-item is-hoverable">

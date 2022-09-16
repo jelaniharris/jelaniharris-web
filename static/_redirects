@@ -6,4 +6,6 @@
 /2012/:slug /blog/:slug 301
 /2013/:slug /blog/:slug 301
 /2014/:slug /blog/:slug 301
-/blog / 301
+/tags /blog/tags 301
+/contact-me /contact 301
+/author/jelani-harris /about 301

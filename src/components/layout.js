@@ -20,7 +20,7 @@ const Layout = ({ location, title, children, preMain, noContainer = false }) => 
   return (
     <section className="global-wrapper" data-is-root-path={isRootPath}>
       <Header location={location} title={title} />
-      <main>
+      <main id="top">
         {preMain}
         <div>
         {childrenElement}

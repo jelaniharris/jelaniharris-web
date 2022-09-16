@@ -18,7 +18,7 @@ const ThankYou = ({location}) => {
                     <FontAwesomeIcon icon={faHome} />
                   </span>
                     Home</Link></li>
-                  <li class="is-active"><a href="#" aria-current="page">Contact Me</a></li>
+                  <li class="is-active" aria-current="page"><span>Contact Me</span></li>
                 </ul>
               </nav>
             </PreMain>

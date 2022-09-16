@@ -12,10 +12,9 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 
 import  { TwitterTweetEmbed } from 'react-twitter-embed';
 import HeroMe from "../components/home/hero-me"
-import HeroProjects from "../components/home/hero-projects"
 import HeroTechnologies from "../components/home/hero-technologies"
 
-const BlogIndex = ({ data, location }) => {
+const SiteIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
   const tweets = data.allTwitterStatusesUserTimelineRecentTweets.nodes
@@ -168,7 +167,7 @@ const BlogIndex = ({ data, location }) => {
   )
 }
 
-export default BlogIndex
+export default SiteIndex
 
 export const pageQuery = graphql`
   query {

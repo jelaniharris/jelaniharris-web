@@ -15,11 +15,11 @@ const About = ({location}) => {
               <nav className="breadcrumb is-medium" aria-label="breadcrumbs">
                 <ul>
                   <li><Link to="/">
-                  <span class="icon is-small">
+                  <span className="icon is-small">
                     <FontAwesomeIcon icon={faHome} />
                   </span>
                     Home</Link></li>
-                  <li className="is-active"><a href="#" aria-current="page">About Me</a></li>
+                  <li className="is-active" aria-current="page"><span>About Me</span></li>
                 </ul>
               </nav>
             </PreMain>
@@ -54,7 +54,7 @@ const About = ({location}) => {
                     <li>Favorite Foods: Dutch Apple Pie and Ice Cream Sandwiches</li>
                     <li>Favorite <em>Healthy </em>Food: Sugar Snap Peas</li>
                     <li>Favorite Board Games: Citadels and Carcassonne</li>
-                    <li>Favorite Book: <a onclick="javascript:pageTracker._trackPageview('/outgoing/www.amazon.com/gp/product/0441444253/ref=cm_cr_pr_product_top');" href="http://www.amazon.com/gp/product/0441444253/ref=cm_cr_pr_product_top">Kilobyte</a> by Piers Anthony</li>
+                    <li>Favorite Book: <a href="http://www.amazon.com/gp/product/0441444253/ref=cm_cr_pr_product_top">Kilobyte</a> by Piers Anthony</li>
                     <li>Favorite Saying: “Those that can’t create, critique.”</li>
                 </ul>
             </article>
