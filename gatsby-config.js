@@ -9,7 +9,7 @@ module.exports = {
     },
     description: `A place of all things Jelani Harris`,
     keywords: ['programming', 'coding', 'developer', 'full-stack'],
-    siteUrl: `https://jelaniharris.com/`,
+    siteUrl: `https://jelaniharris.com`,
     imageUrl: `/static/images/logo.png`,
     social: {
       twitter: `@jelaniharris`,

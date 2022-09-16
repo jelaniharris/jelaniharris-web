@@ -270,11 +270,15 @@ footer.page-footer {
 .post-image {
   max-height: 500px;
   overflow: hidden;
+  border-radius: 20px;
+  img {
+    max-height: 500px;
+    object-fit: cover;
+  }
 }
 
-.post-image img {
-  max-height: 500px;
-  object-fit: cover;
+.image-credit {
+  width: 100%;
 }
 
 // Fix the tag size being too small

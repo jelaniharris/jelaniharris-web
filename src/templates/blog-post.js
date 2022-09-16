@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import Img from "gatsby-image"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -12,12 +11,13 @@ import { faComment, faHome } from '@fortawesome/free-solid-svg-icons';
 import { Disqus } from 'gatsby-plugin-disqus';
 import ShowTags from "../components/common/showTags"
 
+import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
-  const siteTitle = `${post.frontmatter.title || 'Blog Post'} | ${data.site.siteMetadata?.title || "Title"}`;
-  let featuredImgFluid = post.frontmatter.featuredImage?.childImageSharp?.fluid
-  let originalImage = post.frontmatter.featuredImage?.childImageSharp?.original;
+  const siteTitle = `${post.frontmatter.title || 'Blog Post'}`;
+  let featuredImgFluid = getImage(post.frontmatter.featuredImage);
+  let originalImage = getSrc(post.frontmatter.featuredImage);
   const featuredAlt = post.frontmatter.featuredAlt || null;
   const tags = post.frontmatter.tags || [];
   const { previous, next } = data
@@ -52,9 +52,7 @@ const BlogPostTemplate = ({ data, location }) => {
         description={post.frontmatter.description || post.excerpt}
         ogType="article"
         image={{
-          width: originalImage ? originalImage.width : '',
-          height: originalImage ? originalImage.height : '',
-          src: originalImage ? `${data.site.siteMetadata.siteUrl}${originalImage.src}` : null
+          src: originalImage ? `${data.site.siteMetadata.siteUrl}${originalImage}` : null
         }}
         pageKeywords={tags}
         url={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
@@ -92,11 +90,14 @@ const BlogPostTemplate = ({ data, location }) => {
             </div>
           </header>
           
-          <div className="post-image mb-3">
-            <meta itemProp="image" content={originalImage ? originalImage.src : ''} />
-            <Img fluid={featuredImgFluid} />
-            {!!featuredAlt &&
-              <span>{featuredAlt}</span>
+          <div className="mb-5">
+            <meta itemProp="image" content={originalImage ? `${data.site.siteMetadata.siteUrl}${originalImage}` : ''} />
+            <figure className="post-image">
+              <GatsbyImage alt={featuredAlt} image={featuredImgFluid} />
+            </figure>
+            {
+            featuredAlt && 
+            <figcaption className="image-credit is-size-6 has-text-centered has-text-weight-light">{featuredAlt}</figcaption>
             }
           </div>
           <section
@@ -182,14 +183,7 @@ export const pageQuery = graphql`
         featuredAlt
         featuredImage {
           childImageSharp {
-            original {
-              src,
-              width,
-              height,
-            }
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(layout: FULL_WIDTH)
           }
         }
       }
