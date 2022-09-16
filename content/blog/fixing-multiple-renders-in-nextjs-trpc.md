@@ -2,7 +2,7 @@
 title: Fixing multiple renders with NextJs and tRPC
 date: "2022-08-23T13:00:00.000Z"
 tags: ["nextjs", "trpc"]
-description: "How to fix multiple rendering issues in NextJS and tRPC"
+description: "A post about how to fix multiple rendering issues when using NextJS and tRPC"
 featuredImage: ./images/pexels-mo-eid-8347499.jpg
 featuredAlt: "Photo by Mo Eid: https://www.pexels.com/photo/silhouette-of-person-standing-near-a-doorway-with-bright-light-8347499/"
 ---

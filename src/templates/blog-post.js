@@ -15,7 +15,7 @@ import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
-  const siteTitle = `${post.frontmatter.title || 'Blog Post'}`;
+  const siteTitle = `${post.frontmatter.title || 'Blog Post'} | ${data.site.siteMetadata.title}`;
   let featuredImgFluid = getImage(post.frontmatter.featuredImage);
   let originalImage = getSrc(post.frontmatter.featuredImage);
   const featuredAlt = post.frontmatter.featuredAlt || null;
