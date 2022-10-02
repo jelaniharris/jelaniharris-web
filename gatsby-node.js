@@ -15,16 +15,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       {
         allMarkdownRemark(
           sort: { fields: [frontmatter___date], order: ASC }
+          filter: { fields: { released: { eq: true }}}
           limit: 1000
         ) {
           nodes {
             id
             fields {
               slug
+              released
             }
           }
         }
-        tagsGroup: allMarkdownRemark(limit: 2000) {
+        tagsGroup: allMarkdownRemark(
+          filter: { fields: { released: { eq: true }}}
+          limit: 2000
+        ) {
           group(field: frontmatter___tags) {
             fieldValue
           }
@@ -65,7 +70,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Create blog tag pages
-  const tags = result.data.tagsGroup.group;
+  const tags = result.data.tagsGroup.group
   tags.forEach(tag => {
     createPage({
       path: `/blog/tag/${_.kebabCase(tag.fieldValue)}/`,
@@ -78,16 +83,25 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+  const { createNodeField, create } = actions
+  const MD_TYPE = "MarkdownRemark"
+  const forcePublish = process.env.NODE_ENV === 'development';
 
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    const uniqueid = path.basename(node.fileAbsolutePath, '.md');
+  if (node.internal.type === MD_TYPE) {
+    const slug = createFilePath({ node, getNode })
+    const uniqueid = path.basename(node.fileAbsolutePath, ".md")
+    const separtorIndex = ~slug.indexOf("_") ? slug.indexOf("_") : 0;
+    const shortSlugStart = separtorIndex ? separtorIndex + 1 : 0;
+
+    let isReleased = false;
+    if (forcePublish || node.frontmatter && !node.frontmatter.draft) {
+      isReleased = true;
+    }
 
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value: `${separtorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`
     })
 
     createNodeField({
@@ -95,11 +109,32 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: uniqueid,
     })
+
+    createNodeField({
+      name: `released`,
+      node,
+      value: isReleased,
+    })
+
   }
 }
 
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
+  const { createFieldExtension, createTypes } = actions
+
+  createFieldExtension({
+    name: "defaultFalse",
+    extend() {
+      return {
+        resolve(source, args, context, info) {
+          if (source[info.fieldName] == null) {
+            return false
+          }
+          return source[info.fieldName]
+        },
+      }
+    },
+  })
 
   // Explicitly define the siteMetadata {} object
   // This way those will always be defined even if removed from gatsby-config.js
@@ -137,11 +172,15 @@ exports.createSchemaCustomization = ({ actions }) => {
       description: String
       date: Date @dateformat
       featuredImage: File @fileByRelativePath
+      featuredAlt: String
+      featuredAltUrl: String
       tags: [String]
+      draft: Boolean @defaultFalse
     }
 
     type Fields {
       slug: String
+      released: Boolean @defaultFalse
     }
   `)
 }

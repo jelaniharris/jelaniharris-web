@@ -8,7 +8,7 @@ const PostEntry = ({ post }) => {
   let featuredImgFixed = getImage(frontmatter.featuredImage)
 
   return (
-    <div className="card my-3">
+    <div className={`card my-3 ${frontmatter.draft ? "blog-card-draft" : ""}`}>
       <div className="is-flex is-flex-direction-row is-align-content-flex-start">
         <figure>
           <Link to={fields.slug}>

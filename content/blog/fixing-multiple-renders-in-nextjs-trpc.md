@@ -4,7 +4,8 @@ date: "2022-08-23T13:00:00.000Z"
 tags: ["nextjs", "trpc"]
 description: "A post about how to fix multiple rendering issues when using NextJS and tRPC"
 featuredImage: ./images/pexels-mo-eid-8347499.jpg
-featuredAlt: "Photo by Mo Eid: https://www.pexels.com/photo/silhouette-of-person-standing-near-a-doorway-with-bright-light-8347499/"
+featuredAlt: "Photo by Mo Eid"
+featuredAltUrl: "https://www.pexels.com/photo/silhouette-of-person-standing-near-a-doorway-with-bright-light-8347499/"
 ---
 
 In my [personal starter kit](https://github.com/jelaniharris/JAH-Stack) I am using tRPC with NextJs. I noticed that when I tried to use trcp.useQuery() in an a component I was getting a frustrating amount of multiple renders (two to four at a time).

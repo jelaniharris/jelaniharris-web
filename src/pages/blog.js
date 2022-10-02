@@ -76,18 +76,23 @@ export const pageQuery = graphql`
         }
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      filter: { fields: { released: {eq: true}}}
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
       totalCount
       nodes {
         excerpt(pruneLength: 270)
         fields {
           uniqueid
           slug
+          released
         }
         frontmatter {
           title
           tags
           description
+          draft
           featuredImage {
             childImageSharp {
               gatsbyImageData(layout: FIXED, width: 400)

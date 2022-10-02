@@ -12,6 +12,7 @@ import { Disqus } from 'gatsby-plugin-disqus';
 import ShowTags from "../components/common/showTags"
 
 import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image"
+import DraftBlock from "../components/common/draftBlock"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
@@ -19,9 +20,28 @@ const BlogPostTemplate = ({ data, location }) => {
   let featuredImgFluid = getImage(post.frontmatter.featuredImage);
   let originalImage = getSrc(post.frontmatter.featuredImage);
   const featuredAlt = post.frontmatter.featuredAlt || null;
+  const featuredAltUrl = post.frontmatter.featuredAltUrl || null;
   const tags = post.frontmatter.tags || [];
   const { previous, next } = data
   const url = typeof window !== 'undefined' ? window.location.href : '';
+
+
+  const getCaption = () => {
+    if (!featuredAlt) {
+      return <></>;
+    }
+
+    const figCaptionClasses = "image-credit is-size-6 has-text-centered has-text-weight-light";
+
+    if (featuredAltUrl) {
+      return (<figcaption className={figCaptionClasses}>
+        <a href={featuredAltUrl} target="_blank" rel="noreferrer">
+        {featuredAlt}</a>
+        </figcaption>)
+    } else {
+      return(<figcaption className={figCaptionClasses}>{featuredAlt}</figcaption>)
+    }
+  }
 
   return (
     <Layout location={location} title={siteTitle} noContainer preMain={
@@ -95,11 +115,9 @@ const BlogPostTemplate = ({ data, location }) => {
             <figure className="post-image">
               <GatsbyImage alt={featuredAlt} image={featuredImgFluid} />
             </figure>
-            {
-            featuredAlt && 
-            <figcaption className="image-credit is-size-6 has-text-centered has-text-weight-light">{featuredAlt}</figcaption>
-            }
+            {getCaption()}
           </div>
+          {post.frontmatter.draft && <DraftBlock />}
           <section
             className="content"
             dangerouslySetInnerHTML={{ __html: post.html }}
@@ -179,8 +197,10 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         formatdate : date(formatString: "YYYY-MM-DD")
         description
+        draft
         tags
         featuredAlt
+        featuredAltUrl
         featuredImage {
           childImageSharp {
             gatsbyImageData(layout: FULL_WIDTH)

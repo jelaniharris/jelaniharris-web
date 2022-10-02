@@ -13,6 +13,7 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 import  { TwitterTweetEmbed } from 'react-twitter-embed';
 import HeroMe from "../components/home/hero-me"
 import HeroTechnologies from "../components/home/hero-technologies"
+import DraftBlock from "../components/common/draftBlock"
 
 const SiteIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -64,7 +65,7 @@ const SiteIndex = ({ data, location }) => {
           itemType="http://schema.org/Article"
         >
           <div className="card mb-3">
-              <div className="card-header card-header-blog is-justify-content-center">
+              <div className={`card-header card-header-blog ${content.draft ? 'card-header-blog-draft' : ''} is-justify-content-center`}>
                 <span className="is-size-4"><FontAwesomeIcon icon={faComment} /></span>
                 <span className="is-size-4 ml-2">Blog</span>
               </div>
@@ -76,6 +77,7 @@ const SiteIndex = ({ data, location }) => {
                     </Link>
                   </span>
                 </p>
+                
                 <section className="content">
                   <p
                     dangerouslySetInnerHTML={{
@@ -86,6 +88,7 @@ const SiteIndex = ({ data, location }) => {
                 </section>                
                 
               </div>
+              {content.draft && <DraftBlock />}
               <div className="card-footer">
                 <div className="card-footer-item">
                   {
@@ -127,6 +130,7 @@ const SiteIndex = ({ data, location }) => {
       tags: post.frontmatter.tags || [],
       slug: post.fields.slug,
       url: post.fields.slug,
+      draft: post.frontmatter.draft,
       content: post.frontmatter.description || post.excerpt,
       created_at: post.frontmatter.date,
       created_at_date: new Date(post.frontmatter.date)
@@ -176,16 +180,21 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { fields: { released: {eq: true}}}
+    ) {
       nodes {
         excerpt
         fields {
           slug
+          released
         }
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
           title
           description
+          draft
           tags
         }
       }

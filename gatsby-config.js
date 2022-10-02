@@ -93,11 +93,14 @@ module.exports = {
                 path
               }
             }
-            allMarkdownRemark {
+            allMarkdownRemark(
+              filter: { fields: { released: {eq: true}}}
+            ) {
               nodes {
                 id
                 fields {
                   slug
+                  released
                 }
                 frontmatter {
                   date
@@ -195,12 +198,14 @@ module.exports = {
               {
                 allMarkdownRemark(
                   sort: { order: DESC, fields: [frontmatter___date] },
+                  filter: { fields: { released: {eq: true}}}
                 ) {
                   nodes {
                     excerpt
                     html
                     fields {
                       slug
+                      released
                     }
                     frontmatter {
                       title
