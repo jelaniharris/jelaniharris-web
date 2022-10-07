@@ -15,6 +15,8 @@ import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image"
 import DraftBlock from "../components/common/draftBlock"
 
 const BlogPostTemplate = ({ data, location }) => {
+  const [showComments, setShowComments] = React.useState(false);
+
   const post = data.markdownRemark
   const siteTitle = `${post.frontmatter.title || 'Blog Post'} | ${data.site.siteMetadata.title}`;
   let featuredImgFluid = getImage(post.frontmatter.featuredImage);
@@ -40,6 +42,27 @@ const BlogPostTemplate = ({ data, location }) => {
         </figcaption>)
     } else {
       return(<figcaption className={figCaptionClasses}>{featuredAlt}</figcaption>)
+    }
+  }
+
+  const ShowCommentsContainer = () => {
+    if (showComments) {
+      return (
+        <Disqus
+        config={{
+            /* Replace PAGE_URL with your post's canonical URL variable */
+            url: url,
+            /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+            identifier: post.fields.uniqueid,
+            /* Replace PAGE_TITLE with the title of the page */
+            title: post.frontmatter.title,
+        }}
+      />
+      )
+    } else {
+      return (
+        <button className="button is-link is-medium is-fullwidth" onClick={() => setShowComments(true)}>Read or Write a Comment</button>
+      )
     }
   }
 
@@ -150,16 +173,7 @@ const BlogPostTemplate = ({ data, location }) => {
       </div>
       <section id="blog-comments">
         <div className="container">
-          <Disqus
-            config={{
-                /* Replace PAGE_URL with your post's canonical URL variable */
-                url: url,
-                /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
-                identifier: post.fields.uniqueid,
-                /* Replace PAGE_TITLE with the title of the page */
-                title: post.frontmatter.title,
-            }}
-          />
+          <ShowCommentsContainer />
         </div>
       </section>
     </Layout>
