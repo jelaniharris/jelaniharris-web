@@ -1,6 +1,9 @@
 ---
 title: How to read remote files using PHP
 date: "2010-12-08T22:12:03.284Z"
+featuredImage: ./images/pexels-kindel-media-7054757.jpg
+featuredAlt: "Photo by Kindel Media on Pexels"
+featuredAltUrl: "https://www.pexels.com/photo/a-close-up-shot-of-paper-clipped-documents-7054757/"
 tags: ["php"]
 ---
 When I was implementing pingback functionality in my custom blogging software, I needed to read files from a remote server.

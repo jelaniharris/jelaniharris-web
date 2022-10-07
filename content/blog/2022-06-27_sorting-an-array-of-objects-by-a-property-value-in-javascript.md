@@ -3,7 +3,8 @@ title: "Sorting an array of objects by a property value in javascript"
 date: "2022-06-27T01:11:00.000Z"
 tags: ["javascript"]
 featuredImage: ./images/pexels-photo-681118.jpg
-featuredAlt: "Photo by NEOSiAM  2021 from Pexels: https://www.pexels.com/photo/photo-of-ball-pit-balls-681118/"
+featuredAlt: "Photo by NEOSiAM  2021 from Pexels"
+featuredAltUrl: "https://www.pexels.com/photo/photo-of-ball-pit-balls-681118/"
 ---
 
 ## Sorting using sort()

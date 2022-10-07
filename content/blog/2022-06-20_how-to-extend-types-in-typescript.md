@@ -3,7 +3,8 @@ title: How to extend types in Typescript
 date: "2022-06-20T14:00:03.284Z"
 tags: ["javascript", "typescript"]
 featuredImage: ./images/pexels-kevin-ku-577585.jpg
-featuredAlt: "Photo by Kevin Ku: https://www.pexels.com/photo/data-codes-through-eyeglasses-577585/"
+featuredAlt: "Photo by Kevin Ku"
+featuredAltUrl: "https://www.pexels.com/photo/data-codes-through-eyeglasses-577585/"
 ---
 
 ## Use an interface (Typescript 2.2+)

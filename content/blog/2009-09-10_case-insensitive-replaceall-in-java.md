@@ -2,6 +2,9 @@
 title: Case-insensitive replaceAll in Java
 date: "2009-09-10T22:12:03.284Z"
 description: "How to use a case-insensitive replaceAll in javascript"
+featuredImage: ./images/nathan-dumlao-6VhPY27jdps-unsplash.jpg
+featuredAlt: "Photo by Nathan Dumlao on Unsplash"
+featuredAltUrl: "https://unsplash.com/@nate_dumlao?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 tags: ["java", "regex"]
 ---
 

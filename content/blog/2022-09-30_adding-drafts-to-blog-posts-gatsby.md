@@ -203,7 +203,7 @@ draft: true
 
 Now that you have this setup for your own system, I like to add a visual indicator to me that flags posts as drafts when I'm working locally:
 
-[![](./images/adding-drafts-to-blog-posts-gatsby/drafts.png "Post drafts on my index page")](>./images/adding-drafts-to-blog-posts-gatsby/drafts.png)
+![![](./images/adding-drafts-to-blog-posts-gatsby/drafts.png "Post drafts on my index page")](./images/adding-drafts-to-blog-posts-gatsby/drafts.png)
 
 ## Add drafts field to frontmatter on blog pages
 

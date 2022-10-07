@@ -136,9 +136,7 @@ main {
   border-bottom: 1px solid #243240;
   margin: 0 0 15px 0;
   padding: 0 0 20px 0;
-  @include until-widescreen {
-    width: 100%;
-  }
+  width: 100%;
   &:last-child {
     border-bottom: none;
   }

@@ -1,9 +1,12 @@
 ---
 title: Remove Anchors from a Url in Javascript
 date: "2008-08-08T22:12:03.284Z"
+featuredImage: ./images/milan-degraeve-0ztvUdH5b-A-unsplash.jpg
+featuredAlt: "Photo by milan degraeve on Unsplash"
+featuredAltUrl: "https://unsplash.com/@milandegraeve?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 tags: ["javascript"]
 ---
-
+  
 Here is something useful that I discovered in my programming for my personal websites. I needed to strip out the anchor portion of a link and leave the rest of the url intact. For example I wanted:
 
 > http://jelaniharris.com/I-love-apple-pies#comments

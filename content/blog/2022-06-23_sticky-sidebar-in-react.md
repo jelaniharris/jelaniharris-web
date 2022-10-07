@@ -3,7 +3,8 @@ title: Sticky Sidebar in React
 date: "2022-06-23T19:19:00.000Z"
 tags: ["react", "css"]
 featuredImage: ./images/pexels-photo-302163.webp
-featuredAlt: "Photo by Pixabay from Pexels: https://www.pexels.com/photo/art-blur-color-delicious-302163/"
+featuredAlt: "Photo by Pixabay from Pexels"
+featuredAltUrl: "https://www.pexels.com/photo/art-blur-color-delicious-302163/"
 ---
 
 ## How to do it
