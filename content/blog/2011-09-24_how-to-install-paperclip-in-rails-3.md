@@ -1,7 +1,7 @@
 ---
 title: How to install Paperclip in Rails 3
 date: "2011-09-24T22:12:03.284Z"
-tags: ["progamming", "rails"]
+tags: ["progamming", "rails", "paperclip"]
 featuredImage: ./images/181912_300-1200x565.jpg
 ---
 

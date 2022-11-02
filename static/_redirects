@@ -1,4 +1,5 @@
-/tag/:tagname /blog/tag/:tagname
+/tag/:tagname /blog/tag/:tagname 301
+/tag/:tagname/feed /blog/tag/:tagname 301
 /2008/:slug /blog/:slug 301
 /2009/:slug /blog/:slug 301
 /2010/:slug /blog/:slug 301
@@ -6,6 +7,10 @@
 /2012/:slug /blog/:slug 301
 /2013/:slug /blog/:slug 301
 /2014/:slug /blog/:slug 301
+/:year/:slug/comment-page-1 /blog/:slug 301
+/:year/:slug/feed /blog/:slug 301
 /tags /blog/tags 301
 /contact-me /contact 301
+/about/feed /contact 301
 /author/jelani-harris /about 301
+/author/admin /about 301
