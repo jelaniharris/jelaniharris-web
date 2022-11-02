@@ -2,6 +2,9 @@
 title: Removing empty elements from an array
 date: "2010-04-04T22:12:03.284Z"
 tags: ["javascript", "php"]
+featuredImage: ./images/pexels-tirachard-kumtanom-733857.jpg
+featuredAlt: "Photo by Tirachard Kumtanom"
+featuredAltUrl: "https://www.pexels.com/photo/white-blank-notebook-733857/"
 ---
 
 When dealing with tag inputs from users, I find myself having to make sure they they don’t enter in any blank or empty tags. Then I realized that I needed to find out how to remove undesirable elements not only from the Php side, but also from the Javascript side as well. Thus, here are some functions that may help some other people out if they’re searching for similar functionality.

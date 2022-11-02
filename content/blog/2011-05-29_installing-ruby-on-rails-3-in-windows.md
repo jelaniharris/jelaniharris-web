@@ -1,9 +1,12 @@
 ---
 title: Installing Ruby on Rails 3 in Windows
 date: "2011-05-29T22:12:03.284Z"
-tags: ["ruby", "itunes"]
+tags: ["ruby", "windows"]
+featuredImage: ./images/jason-d-VKLJ-BJlszE-unsplash.jpg
+featuredAlt: "Photo by Jason D"
+featuredAltUrl: "https://unsplash.com/@jasondeblooisphotography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 ---
-
+  
 So last week I got a little tired of having to reboot my computer to dual-boot in a linux environment so that I could work on Rails stuff. Then I decided to try using Rails in Windows. Here’s a step by step guide on how to install rails in Windows.
 
 ## Install Ruby 1.9

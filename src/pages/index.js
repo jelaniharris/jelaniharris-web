@@ -112,14 +112,14 @@ const SiteIndex = ({ data, location }) => {
 
   // Put the tweets into there
   tweets.forEach(tweet => {
-    contents.push({
+    /*contents.push({
       type: 'tweet',
       id: tweet.id_str,
       slug: tweet.id,
       content: tweet.full_text,
       created_at: tweet.created_at,
       created_at_date: new Date(tweet.created_at)
-    })
+    })*/
   });
 
   // Put the blogs into there

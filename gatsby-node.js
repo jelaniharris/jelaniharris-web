@@ -89,6 +89,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   if (node.internal.type === MD_TYPE) {
     const slug = createFilePath({ node, getNode })
+    // /blog/2022-09-27_creating-pwa-nextjs
+    
     const uniqueid = path.basename(node.fileAbsolutePath, ".md")
     const separtorIndex = ~slug.indexOf("_") ? slug.indexOf("_") : 0;
     const shortSlugStart = separtorIndex ? separtorIndex + 1 : 0;
@@ -98,11 +100,19 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       isReleased = true;
     }
 
-    createNodeField({
-      name: `slug`,
-      node,
-      value: `${separtorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`
-    })
+    if (separtorIndex) {
+      createNodeField({
+        name: `slug`,
+        node,
+        value: `/blog/${slug.substring(shortSlugStart)}`
+      });
+    } else {
+      createNodeField({
+        name: `slug`,
+        node,
+        value: slug
+      });
+    }
 
     createNodeField({
       name: `uniqueid`,

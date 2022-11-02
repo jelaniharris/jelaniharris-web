@@ -2,8 +2,11 @@
 title: Strip Whitespace on save with Aptana
 date: "2012-06-04T22:12:03.284Z"
 tags: ["aptana"]
+featuredImage: ./images/danil-shostak-AChwtt3tBPU-unsplash.jpg
+featuredAlt: "Photo by Danil Shostak"
+featuredAltUrl: "https://unsplash.com/@max010"
 ---
-
+  
 So recently I had a coworker get slightly annoyed with me and my trailing whitespaces at the end of lines. I’m using [Aptana](http://www.aptana.com/) and not anything crazy like vim to do my programming work, I don’t actually see the whitespace I’m leaving around.
 
 However, they do show up in the git commits.
