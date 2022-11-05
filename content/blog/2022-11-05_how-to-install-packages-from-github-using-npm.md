@@ -5,7 +5,6 @@ tags: ["npm", "github"]
 featuredImage: ./images/pexels-cottonbro-studio-4553183.jpg
 featuredAlt: "Photo by cottonbro studio"
 featuredAltUrl: "https://www.pexels.com/photo/person-in-black-leather-boots-lying-on-brown-cardboard-boxes-4553183/"
-draft: true
 ---
 
 Using the npm registry is not the only source that we can use to install packages into our applications. NPM also has the ability to install from a remote git url as long as the repository has a package.json file in it's root directory.
