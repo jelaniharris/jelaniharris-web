@@ -16,8 +16,26 @@ header .title {
   color: $post-title-color;
 }
 
+.container {
+  @include until-widescreen {
+    margin: 0 10px;
+  }
+}
+
+.breadcrumb {
+
+  @include until-widescreen {
+    font-size: 0.75rem;
+  }
+}
+
+
 .breadcrumbs {
   color: $breadcrumbs-color;
+
+  @include touch {
+    display: none;
+  }
 }
 
 .breadcrumb li > span {
@@ -224,6 +242,7 @@ main {
     }
   }
 }
+
 
 /* Blog Post */
 .blog-post {

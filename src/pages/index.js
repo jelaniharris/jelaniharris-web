@@ -14,6 +14,7 @@ import  { TwitterTweetEmbed } from 'react-twitter-embed';
 import HeroMe from "../components/home/hero-me"
 import HeroTechnologies from "../components/home/hero-technologies"
 import DraftBlock from "../components/common/draftBlock"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const SiteIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -68,6 +69,15 @@ const SiteIndex = ({ data, location }) => {
               <div className={`card-header card-header-blog ${content.draft ? 'card-header-blog-draft' : ''} is-justify-content-center`}>
                 <span className="is-size-4"><FontAwesomeIcon icon={faComment} /></span>
                 <span className="is-size-4 ml-2">Blog</span>
+              </div>
+              <div className="card-image">
+                <figure className="image">
+                  <GatsbyImage
+                    image={content.featuredImage}
+                    width={300}
+                    style={{ height: "100%", width:"100%", minHeight: "150px" }}
+                  />
+                </figure>
               </div>
               <div className="card-content">
                 <p className="title" itemProp="headline" >
@@ -132,6 +142,7 @@ const SiteIndex = ({ data, location }) => {
       url: post.fields.slug,
       draft: post.frontmatter.draft,
       content: post.frontmatter.description || post.excerpt,
+      featuredImage: getImage(post.frontmatter.featuredImage),
       created_at: post.frontmatter.date,
       created_at_date: new Date(post.frontmatter.date)
     })
@@ -195,6 +206,11 @@ export const pageQuery = graphql`
           title
           description
           draft
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData(layout: FIXED, width: 300)
+            }
+          }
           tags
         }
       }

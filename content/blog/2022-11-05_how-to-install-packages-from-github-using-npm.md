@@ -1,5 +1,5 @@
 ---
-title: How to install packages from Github using NPM
+title: How to install packages from GitHub using NPM
 date: "2022-11-05T12:00:00.000Z"
 tags: ["npm", "github"]
 featuredImage: ./images/pexels-cottonbro-studio-4553183.jpg

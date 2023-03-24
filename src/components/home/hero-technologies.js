@@ -5,13 +5,13 @@ import { faReact } from "@fortawesome/free-brands-svg-icons";
 
 const HeroTechnologies = () => {
     return (
-        <section className="hero is-medium front-hero-technologies">
+        <section className="hero is-small front-hero-technologies">
         <div className="hero-body">
         <div className="container">
 
           <section className="block has-text-centered">
             <h2 className="title is-2">Technologies</h2>
-            <p className="subtitle">I've worked with a large range of technologies in my career and personal projects.</p>
+            <p className="subtitle">I've worked with a ton of technologies in my career and personal projects. I really enjoy learning new stuff and I tend to post about what I learn here.</p>
           </section>
           <div className="columns">
             <div className="column">
@@ -23,7 +23,7 @@ const HeroTechnologies = () => {
             <div className="column">
               <div className="column-content">
                 <h4 className="title is-4"><FontAwesomeIcon icon={faDatabase} /> Back-End</h4>
-                <p>Node.Js, ExpressJs, NestJs, PHP, Laravel, Rails/Ruby, Postgres, MySql, OracleSql, MSSql, Python, Apache / NingX</p>
+                <p>Node.Js, ExpressJs, NestJs, NextJs, PHP, Laravel, Ruby/Rails, Postgres, MySql, OracleSql, MSSql, Python, Apache / NingX</p>
               </div>
             </div>
             <div className="column">
@@ -35,7 +35,7 @@ const HeroTechnologies = () => {
             <div className="column">
               <div className="column-content">
                 <h4 className="title is-4"><FontAwesomeIcon icon={faTools} /> Tools</h4>
-                <p>Git, Webpack, Bootstrap, VS Code</p>
+                <p>Git, Webpack, Bootstrap, VS Code, TailwindCSS</p>
               </div>
             </div>
           </div>
