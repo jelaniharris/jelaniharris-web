@@ -70,15 +70,13 @@ const SiteIndex = ({ data, location }) => {
                 <span className="is-size-4"><FontAwesomeIcon icon={faComment} /></span>
                 <span className="is-size-4 ml-2">Blog</span>
               </div>
-              <div className="card-image">
-                <figure className="image">
-                  <GatsbyImage
-                    image={content.featuredImage}
-                    width={300}
-                    style={{ height: "100%", width:"100%", minHeight: "150px" }}
-                  />
-                </figure>
-              </div>
+              <figure className="card-image image">
+                <GatsbyImage
+                  image={content.featuredImage}
+                  width={300}
+                  style={{ height: "100%", width:"100%", minHeight: "150px" }}
+                />
+              </figure>
               <div className="card-content">
                 <p className="title" itemProp="headline" >
                   <span>

@@ -245,6 +245,12 @@ main {
 
 
 /* Blog Post */
+.card-image {
+  img {
+    height: 100%;
+  }
+}
+
 .blog-post {
   header {
     border-bottom: 2px solid #DDD;
