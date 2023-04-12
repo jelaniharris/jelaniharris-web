@@ -37,7 +37,7 @@ Rails has a feature where it can stop DNS rebinding and other host style attacks
 Whenever we are using the getServerSideProps to perform communication with your api, it's needs the url of the container's service.
 
 My compose-docker file looks like this:
-```
+```dockerfile
 version: '3'
 services:
   db:
@@ -94,16 +94,61 @@ Add to environments/development.rb in your rails folder
 
 # Change the NextJs Url
 
-Once you have the backend fixed to support the host, now you need to change the environment variable that you're using for the NextJs api calls to match.
+Once you have the backend fixed to support the host, now you need to change the environment variable that you're using for the NextJs api calls to match. You have to have two api urls. One is for the server api url which is used for the container-to-container connection, the other is used for the browser-to-api connection (in case you didn't want to use getServerSideProps).
 
 ```
 # DEVELOPMENT TOOLS
 # Ideally, don't add them to production deployment envs
 # !STARTERCONF Change to true if you want to log data
 NEXT_PUBLIC_SHOW_LOGGER="false"
-NEXT_PUBLIC_API_URL="http://api:4000"
+NEXT_SERVER_API_URL="http://api:4000"
+NEXT_PUBLIC_API_URL="http://localhost:4000"
 ```
+
+I'm imagining that if I'm setting this up in the cloud, that those two urls would point to the same url. But in developer mode working in docker, having them separated worked well for my purposes.
+
+# Change the next.config.js
+
+Add these two configuration options to the ```next.config.js``` file. 
+
+```js
+  serverRuntimeConfig: {
+    apiUrl: process.env.NEXT_SERVER_API_URL
+  },
+  publicRuntimeConfig: {
+    apiUrl: process.env.NEXT_PUBLIC_API_URL
+  },
+```
+
+# Create a single service file
+
+I made a single service file in a folder called ```services``` where I stick all of my model, react-query and api calls. I have a single api file, that I use to access my api using axios:
+
+My ```services/api.ts```:
+```js
+  import axios from 'axios';
+  import getConfig from 'next/config';
+
+  // Get our configuration of our runtimes
+  const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+  // Use the correct url depending on if it's server or public
+  const apiUrl = serverRuntimeConfig.apiUrl || publicRuntimeConfig.apiUrl;
+
+  // Create the axios instance
+  const api = axios.create({
+    baseURL: apiUrl,
+    timeout: 5000,
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+
+  export { api };
+```
+
+The serverRuntimeConfig is only available on the server-side, and the publicRuntimeConfig is available server-side and client-side. So when I'm getting my axios instance and I'm in a getServerSideProps call, I'm getting the one that has the server api (NEXT_SERVER_API_URL). Then
 
 # And that's it
 
-Once I had those two changes in place, I was able to properly communicate to my backend. I'm hoping this helps.
+Once I had those changes in place, I was able to properly communicate to my backend using docker. I'm hoping this helps.
