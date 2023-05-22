@@ -8,7 +8,7 @@ const HeroMe = () => {
           <img src={HeroLogo} alt="Space Background with Logo in Front" className="hero-background is-transparent" />
           <div className="hero-body">
           <div className="container has-text-centered">
-          <h1 className="title is-1">Hi, I'm <span className="has-text-weight-bold">Jelani</span></h1>
+          <h1 className="title is-1">Hi, I'm <span className="has-text-weight-bold">Jelani Harris</span></h1>
           <p className="subtitle">I'm a Senior Full Stack Software Engineer</p>
           </div>
         </div>

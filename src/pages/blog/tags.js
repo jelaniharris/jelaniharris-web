@@ -82,7 +82,7 @@ export const pageQuery = graphql`
       filter: { fields: { released: { eq: true }}}
       limit: 2000
     ) {
-      group(field: frontmatter___tags) {
+      group(field: {frontmatter: {tags: SELECT}}) {
         fieldValue
         totalCount
       }

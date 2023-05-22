@@ -6,42 +6,50 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PreMain from "../components/premain"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faHome } from '@fortawesome/free-solid-svg-icons';
-import { Disqus } from 'gatsby-plugin-disqus';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faComment, faHome } from "@fortawesome/free-solid-svg-icons"
+import { Disqus } from "gatsby-plugin-disqus"
 import ShowTags from "../components/common/showTags"
 
 import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image"
 import DraftBlock from "../components/common/draftBlock"
+import Series from "../components/blog/series"
 
 const BlogPostTemplate = ({ data, location }) => {
-  const [showComments, setShowComments] = React.useState(false);
+  const [showComments, setShowComments] = React.useState(false)
 
   const post = data.markdownRemark
-  const siteTitle = `${post.frontmatter.title || 'Blog Post'} | ${data.site.siteMetadata.title}`;
-  let featuredImgFluid = getImage(post.frontmatter.featuredImage);
-  let originalImage = getSrc(post.frontmatter.featuredImage);
-  const featuredAlt = post.frontmatter.featuredAlt || null;
-  const featuredAltUrl = post.frontmatter.featuredAltUrl || null;
-  const tags = post.frontmatter.tags || [];
-  const { previous, next } = data
-  const url = typeof window !== 'undefined' ? window.location.href : '';
-
+  const siteTitle = `${post.frontmatter.title || "Blog Post"} | ${
+    data.site.siteMetadata.title
+  }`
+  let featuredImgFluid = getImage(post.frontmatter.featuredImage)
+  let originalImage = getSrc(post.frontmatter.featuredImage)
+  const featuredAlt = post.frontmatter.featuredAlt || null
+  const featuredAltUrl = post.frontmatter.featuredAltUrl || null
+  const tags = post.frontmatter.tags || []
+  const { previous, next, previousSeries, nextSeries } = data
+  const url = typeof window !== "undefined" ? window.location.href : ""
 
   const getCaption = () => {
     if (!featuredAlt) {
-      return <></>;
+      return <></>
     }
 
-    const figCaptionClasses = "image-credit is-size-6 has-text-centered has-text-weight-light";
+    const figCaptionClasses =
+      "image-credit is-size-6 has-text-centered has-text-weight-light"
 
     if (featuredAltUrl) {
-      return (<figcaption className={figCaptionClasses}>
-        <a href={featuredAltUrl} target="_blank" rel="noreferrer">
-        {featuredAlt}</a>
-        </figcaption>)
+      return (
+        <figcaption className={figCaptionClasses}>
+          <a href={featuredAltUrl} target="_blank" rel="noreferrer">
+            {featuredAlt}
+          </a>
+        </figcaption>
+      )
     } else {
-      return(<figcaption className={figCaptionClasses}>{featuredAlt}</figcaption>)
+      return (
+        <figcaption className={figCaptionClasses}>{featuredAlt}</figcaption>
+      )
     }
   }
 
@@ -49,53 +57,69 @@ const BlogPostTemplate = ({ data, location }) => {
     if (showComments) {
       return (
         <Disqus
-        config={{
+          config={{
             /* Replace PAGE_URL with your post's canonical URL variable */
             url: url,
             /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
             identifier: post.fields.uniqueid,
             /* Replace PAGE_TITLE with the title of the page */
             title: post.frontmatter.title,
-        }}
-      />
+          }}
+        />
       )
     } else {
       return (
-        <button className="button is-link is-medium is-fullwidth" onClick={() => setShowComments(true)}>Read or Write a Comment</button>
+        <button
+          className="button is-link is-medium is-fullwidth"
+          onClick={() => setShowComments(true)}
+        >
+          Read or Write a Comment
+        </button>
       )
     }
   }
 
   return (
-    <Layout location={location} title={siteTitle} noContainer preMain={
-      <PreMain additionalClasses="breadcrumbs">
-        <nav className="breadcrumb is-medium" aria-label="breadcrumbs">
-          <ul>
-            <li><Link to="/">
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faHome} />
-            </span>
-              Home</Link></li>
+    <Layout
+      location={location}
+      title={siteTitle}
+      noContainer
+      preMain={
+        <PreMain additionalClasses="breadcrumbs">
+          <nav className="breadcrumb is-medium" aria-label="breadcrumbs">
+            <ul>
               <li>
-              <Link to="/blog">
-                <span className="icon is-small">
-                  <FontAwesomeIcon icon={faComment} />
-                </span>
-                Blog
+                <Link to="/">
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faHome} />
+                  </span>
+                  Home
                 </Link>
               </li>
-            <li className="is-active" aria-current="page"><span>{post.frontmatter.title}</span></li>
-          </ul>
-        </nav>
-      </PreMain>
-    }>
-
+              <li>
+                <Link to="/blog">
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faComment} />
+                  </span>
+                  Blog
+                </Link>
+              </li>
+              <li className="is-active" aria-current="page">
+                <span>{post.frontmatter.title}</span>
+              </li>
+            </ul>
+          </nav>
+        </PreMain>
+      }
+    >
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
         ogType="article"
         image={{
-          src: originalImage ? `${data.site.siteMetadata.siteUrl}${originalImage}` : null
+          src: originalImage
+            ? `${data.site.siteMetadata.siteUrl}${originalImage}`
+            : null,
         }}
         pageKeywords={tags}
         url={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
@@ -114,7 +138,10 @@ const BlogPostTemplate = ({ data, location }) => {
           },
           {
             property: `article:tag`,
-            content: tags && tags.length > 0 ? tags.join(", ") : data.site.siteMetadata?.keywords.join(", "),
+            content:
+              tags && tags.length > 0
+                ? tags.join(", ")
+                : data.site.siteMetadata?.keywords.join(", "),
           },
         ]}
       />
@@ -125,16 +152,29 @@ const BlogPostTemplate = ({ data, location }) => {
           itemType="http://schema.org/Article"
         >
           <header className="mb-5 pb-3">
-            <h1 className="title is-1" itemProp="headline">{post.frontmatter.title}</h1>
+            <h1 className="title is-1" itemProp="headline">
+              {post.frontmatter.title}
+            </h1>
             <div className="subtitle is-5 ml-1 is-flex is-justify-content-space-between">
-              <time dateTime={post.frontmatter.formatdate} className="mr-3">{post.frontmatter.date}</time>
+              <time dateTime={post.frontmatter.formatdate} className="mr-3">
+                {post.frontmatter.date}
+              </time>
               <meta itemProp="url" content={url} />
-              <span><ShowTags tags={tags} /></span>
+              <span>
+                <ShowTags tags={tags} />
+              </span>
             </div>
           </header>
-          
+
           <div className="mb-5">
-            <meta itemProp="image" content={originalImage ? `${data.site.siteMetadata.siteUrl}${originalImage}` : ''} />
+            <meta
+              itemProp="image"
+              content={
+                originalImage
+                  ? `${data.site.siteMetadata.siteUrl}${originalImage}`
+                  : ""
+              }
+            />
             <figure className="post-image">
               <GatsbyImage alt={featuredAlt} image={featuredImgFluid} />
             </figure>
@@ -147,13 +187,16 @@ const BlogPostTemplate = ({ data, location }) => {
             itemProp="articleBody"
           />
           <hr />
+          <section id="blog-series">
+              <Series series={post.frontmatter.series} previousSeries={previousSeries} nextSeries={nextSeries}/>
+          </section>
           <footer>
             <Bio />
           </footer>
         </article>
+
         <nav className="blog-post-nav my-5">
-          <ul
-          >
+          <ul>
             <li>
               {previous && (
                 <Link to={previous.fields.slug} rel="prev">
@@ -187,12 +230,14 @@ export const pageQuery = graphql`
     $id: String!
     $previousPostId: String
     $nextPostId: String
+    $previousSeriesPostId: String
+    $nextSeriesPostId: String
   ) {
     site {
       siteMetadata {
-        keywords,
-        title,
-        siteUrl,
+        keywords
+        title
+        siteUrl
         author {
           name
         }
@@ -209,9 +254,17 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        formatdate : date(formatString: "YYYY-MM-DD")
+        formatdate: date(formatString: "YYYY-MM-DD")
         description
         draft
+        series {
+          id
+          startDate
+          title
+          endDate
+          description
+        }
+        seriesOrder
         tags
         featuredAlt
         featuredAltUrl
@@ -236,6 +289,32 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+      }
+    }
+    previousSeries: markdownRemark(id: { eq: $previousSeriesPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(layout: FIXED, width: 300)
+          }
+        }
+      }
+    }
+    nextSeries: markdownRemark(id: { eq: $nextSeriesPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(layout: FIXED, width: 300)
+          }
+        }
       }
     }
   }

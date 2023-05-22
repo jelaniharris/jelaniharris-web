@@ -17,6 +17,7 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-image`,
+    `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -29,28 +30,6 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-source-twitter`,
-      options: {
-        credentials: {
-          consumer_key: process.env.TWITTER_CONSUMER_KEY,
-          consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-          bearer_token: process.env.TWITTER_BEARER_TOKEN,
-        },
-        queries: {
-          recentTweets: {
-            endpoint: "statuses/user_timeline",
-            params: {
-              screen_name: "jelaniharris",
-              count: 9,
-              include_rts: false,
-              exclude_replies: true,
-              tweet_mode: "extended",
-            },
-          }
-        },
       },
     },
     {
@@ -241,15 +220,6 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
-    `gatsby-plugin-netlify-cms`,
-    /*{
-      resolve: `gatsby-plugin-htaccess`,
-      options: {
-        redirect: [
-          'RewriteRule'
-        ]
-      }
-    },*/
     {
       resolve: `gatsby-plugin-sass`,
       options: {

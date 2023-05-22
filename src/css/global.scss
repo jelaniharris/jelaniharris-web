@@ -111,6 +111,21 @@ header .title {
       min-height: 200px;
     }
   }
+
+  .techgridflow {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .techimage {
+    padding: 3px;
+    &:hover {
+      background-color: #282b39;
+      border-radius: 15px;
+    }
+  }
 }
 
 .recent-activity {
@@ -147,7 +162,7 @@ header .title {
 }
 
 main {
-  min-height: calc(100vh - 88px);
+  min-height: calc(60vh - 88px);
 }
 
 .recent-post-entry {
@@ -257,7 +272,7 @@ main {
   }
 }
 
-.blog-post-nav {
+.series-post-nav, .blog-post-nav {
   ul {
     display: flex;
     flex-wrap: wrap;

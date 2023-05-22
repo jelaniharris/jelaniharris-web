@@ -26,7 +26,7 @@ frontend    |   syscall: 'connect',
 frontend    |   code: 'ECONNREFUSED',
 ```
 
-At first I thought i had something misconfigured, on the NextJs side - but this is actually on the Rubyu on Rails side. I was able to communicate with my api using the web browser directly or with [Postman](https://www.postman.com/) so I knew it had to be NextJs.
+At first I thought i had something misconfigured, on the NextJs side - but this is actually on the Ruby on Rails side. I was able to communicate with my api using the web browser directly or with [Postman](https://www.postman.com/) so I knew it had to be NextJs.
 
 After some research, trial, and error I finally got my NextJs app talking to my rails api. Here's how I did it:
 

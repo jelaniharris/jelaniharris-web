@@ -7,8 +7,8 @@ const Footer = () => {
   const data = useStaticQuery(graphql`
     query {
       recentPosts: allMarkdownRemark(
-        sort: { fields: [frontmatter___date], order: DESC }
-        filter: { fields: { released: {eq: true}}}
+        sort: { frontmatter: { date: DESC } }
+        filter: { fields: { released: { eq: true } } }
         limit: 4
       ) {
         nodes {
@@ -33,8 +33,8 @@ const Footer = () => {
         }
       }
       upcomingPosts: allMarkdownRemark(
-        sort: { fields: [frontmatter___date], order: DESC }
-        filter: { frontmatter: { draft: {eq: true}}}
+        sort: { frontmatter: { date: DESC } }
+        filter: { frontmatter: { draft: { eq: true }, preview: { eq: true } } }
         limit: 4
       ) {
         nodes {
@@ -43,6 +43,9 @@ const Footer = () => {
           }
           frontmatter {
             title
+            series {
+              title
+            }
           }
         }
       }
@@ -52,21 +55,43 @@ const Footer = () => {
   const nodes = data.recentPosts.nodes
   const upcomingNodes = data.upcomingPosts.nodes
 
+  const OtherThings = () => {
+    return (
+      <>
+        <h3 className="title is-3 my-5">Other Places</h3>
+        <div className="upcoming-posts is-flex is-flex-direction-row is-flex-wrap-wrap">
+          <ul>
+            <li><Link to="/site-attributions">Site Attributions</Link></li>
+          </ul>
+        </div>
+      </>
+    )
+  }
+
   const UpcomingPosts = ({ posts }) => {
     const renderPostTitle = postData => {
-      return <li key={`upcoming-${postData.fields.slug}`}>{postData.frontmatter.title}</li>
+      let seriesLabel = ""
+      if (postData.frontmatter.series && postData.frontmatter.series.title) {
+        seriesLabel = `(${postData.frontmatter.series.title}) `
+      }
+      return (
+        <li key={`upcoming-${postData.fields.slug}`}>
+          {seriesLabel + postData.frontmatter.title}
+        </li>
+      )
     }
 
     if (posts.length === 0) {
       return <></>
     }
-    
+
     return (
       <div className="column is-one-third-tablet">
         <h3 className="title is-3">Upcoming Posts</h3>
         <div className="upcoming-posts is-flex is-flex-direction-row is-flex-wrap-wrap">
           <ul>{posts.map(post => renderPostTitle(post))}</ul>
         </div>
+        <OtherThings />
       </div>
     )
   }
@@ -132,8 +157,8 @@ const Footer = () => {
       <div className="pre-footer py-3">
         <section className="container">
           <div className="columns">
-          <RecentPosts posts={nodes} />
-          <UpcomingPosts posts={upcomingNodes} />
+            <RecentPosts posts={nodes} />
+            <UpcomingPosts posts={upcomingNodes} />
           </div>
         </section>
       </div>

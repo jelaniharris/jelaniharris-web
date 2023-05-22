@@ -8,9 +8,7 @@ import Masonry from 'react-masonry-css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
-import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 
-import  { TwitterTweetEmbed } from 'react-twitter-embed';
 import HeroMe from "../components/home/hero-me"
 import HeroTechnologies from "../components/home/hero-technologies"
 import DraftBlock from "../components/common/draftBlock"
@@ -19,7 +17,6 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 const SiteIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
-  const tweets = data.allTwitterStatusesUserTimelineRecentTweets.nodes
 
   const breakpointColumnsObj = {
     default: 4,
@@ -39,22 +36,6 @@ const SiteIndex = ({ data, location }) => {
           gatsby-config.js).
         </p>
       </Layout>
-    )
-  }
-
-  const TwitterPost = ({data}) => {
-    return (
-      <div key={`tweet-${data.slug}`}>
-        <div className="card mb-3" key={data.slug}>
-          <div className="card-header card-header-tweet is-justify-content-center">
-            <span className="is-size-4"><FontAwesomeIcon icon={faTwitter} /></span>
-            <span className="is-size-4 ml-2">Tweet</span>
-          </div>
-          <div className="card-content">
-            <TwitterTweetEmbed tweetId={data.id} />
-          </div>
-        </div>
-      </div>
     )
   }
 
@@ -118,18 +99,6 @@ const SiteIndex = ({ data, location }) => {
 
   let contents = [];
 
-  // Put the tweets into there
-  tweets.forEach(tweet => {
-    /*contents.push({
-      type: 'tweet',
-      id: tweet.id_str,
-      slug: tweet.id,
-      content: tweet.full_text,
-      created_at: tweet.created_at,
-      created_at_date: new Date(tweet.created_at)
-    })*/
-  });
-
   // Put the blogs into there
   posts.forEach(post => {
     contents.push({
@@ -152,8 +121,6 @@ const SiteIndex = ({ data, location }) => {
   const contentElements = contents.map((data, index) => {
     if (data.type === 'blog') {
       return <BlogPost content={data} key={`content-${index}`} />
-    } else if (data.type === 'tweet') {
-      return <TwitterPost data={data} key={`content-${index}`} />
     }
     return <></>;
   });
@@ -174,7 +141,6 @@ const SiteIndex = ({ data, location }) => {
         >
           {contentElements}
         </Masonry>
-        <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
       </div>
     </Layout>
   )
@@ -190,7 +156,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: {frontmatter: {date: DESC}}
       filter: { fields: { released: {eq: true}}}
     ) {
       nodes {
@@ -211,19 +177,6 @@ export const pageQuery = graphql`
           }
           tags
         }
-      }
-    }
-    allTwitterStatusesUserTimelineRecentTweets(
-      sort: {fields: created_at, order: DESC}
-    ) {
-      nodes {
-        full_text
-        created_at
-        id
-        user {
-          name
-        }
-        id_str
       }
     }
   }

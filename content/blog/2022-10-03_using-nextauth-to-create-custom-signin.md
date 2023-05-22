@@ -6,6 +6,7 @@ featuredImage: ./images/pexels-pixabay-267350.jpg
 featuredAlt: "Photo by Pixabay"
 featuredAltUrl: "https://www.pexels.com/photo/close-up-photography-of-smartphone-icons-267350/"
 draft: true
+preview: true
 ---
 
 Using Nextauth to create custom signin

@@ -78,7 +78,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { fields: { released: {eq: true}}}
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: {frontmatter: {date: DESC}}
     ) {
       totalCount
       nodes {
