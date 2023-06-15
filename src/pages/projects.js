@@ -31,8 +31,8 @@ const Projects = ({ data, location }) => {
 
     bakieImages = bakieProjectImages.map(img => {
       return {
-        original: `http://localhost:8000${img.publicURL}`,
-        thumbnail: `http://localhost:8000${getSrc(img.childImageSharp)}`,
+        original: `${img.publicURL}`,
+        thumbnail: `${getSrc(img.childImageSharp)}`,
         description: bakieDataDescription[img.name] || null,
       }
     })
