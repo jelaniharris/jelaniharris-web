@@ -14,8 +14,10 @@ import ApparatusImages from "../images/projects/apparatus-300x198.jpg"
 import BanditRevolersImage from "../images/projects/banditrevolvers-screenshot.png"
 
 const Projects = ({ data, location }) => {
-  const bakieProjectImages = data ? data.allFile.nodes : null
+  const bakieProjectImages = data ? data.bakie.nodes : null
+  let smarterProjectImages = data ? data.smarter.nodes : null
   let bakieImages = []
+  let smarterImages = []
 
   if (bakieProjectImages) {
     const bakieDataDescription = {
@@ -34,6 +36,23 @@ const Projects = ({ data, location }) => {
         original: `${img.publicURL}`,
         thumbnail: `${getSrc(img.childImageSharp)}`,
         description: bakieDataDescription[img.name] || null,
+      }
+    })
+  }
+
+  if (smarterProjectImages) {
+    const smarterDataDescription = {
+      SmarterSpreadsheets2: "Testimonials",
+      SmarterSpreadsheets3: "Call to action and footer",
+      SmarterSpreadsheets4: "Contact page",
+      SmarterSpreadsheets1: "Main page with hero description",
+    }
+
+    smarterImages = smarterProjectImages.map(img => {
+      return {
+        original: `${img.publicURL}`,
+        thumbnail: `${getSrc(img.childImageSharp)}`,
+        description: smarterDataDescription[img.name] || null,
       }
     })
   }
@@ -100,6 +119,49 @@ const Projects = ({ data, location }) => {
             So please keep in mind that some of these projects are old. Very
             old.
           </p>
+        </div>
+
+        <div className="box">
+          <h3 className="title is-3">Smarter Spreadsheets (2022)</h3>
+          <TechStack
+            values={"NodeJS, Javascript, Gatsby, Netlify, Contentful"}
+          />
+          <ImageGallery items={smarterImages} lazyLoad />
+
+          <p>
+            <strong>Smarter-Spreadsheets'</strong> objective was to create a web presence for a
+            former educator who wanted to alleviate the data responsibilities on
+            school staff by providing a resource to help them do more with less.
+            Smarter-Spreadsheets offers consulting for data management,
+            improving efficiencies, and providing data analysis.
+          </p>
+
+          <p>
+            The primary goal for this website was to give Smarter-Spreadsheets a
+            web presence that describes all of the services they offer. I made a
+            main webpage that immediately tells visitors what the service the
+            site provides in the hero, then describes each sub-service below,
+            with testimonials, a bit about the company, and a call to action.
+            The sub-pages describe the services available in more detail with
+            examples and videos to show how it works.
+          </p>
+
+          <p>
+            Some of the content on the website is powered by Contentful so that
+            I don't have to push a continuous deployment of simple text changes
+            if the company wants a change in rhetoric or an alteration of a
+            service. I find it very convenient and plan on using it for my other
+            sites.
+          </p>
+
+          <p>
+            This was my second site using Gatsby, so it was fascinating to start
+            a new project from the bottom up again.
+          </p>
+
+          <a target="_blank" rel="noreferrer" href="https://smarter-spreadsheets.com" className="button is-link is-medium is-fullwidth">
+            View Site
+          </a>
         </div>
 
         <div className="box">
@@ -281,7 +343,24 @@ export const pageQuery = graphql`
         }
       }
     }
-    allFile(filter: { relativeDirectory: { eq: "projects/bakie-scrapie" } }) {
+    bakie: allFile(
+      sort: { name: ASC }
+      filter: { relativeDirectory: { eq: "projects/bakie-scrapie" } }
+    ) {
+      nodes {
+        id
+        publicURL
+        relativeDirectory
+        name
+        childImageSharp {
+          gatsbyImageData(layout: FIXED, width: 300)
+        }
+      }
+    }
+    smarter: allFile(
+      sort: { name: ASC }
+      filter: { relativeDirectory: { eq: "projects/smarter-spreadsheets" } }
+    ) {
       nodes {
         id
         publicURL
