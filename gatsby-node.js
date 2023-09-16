@@ -306,6 +306,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       description: String
       date: Date @dateformat
+      modified_date: Date @dateformat
       featuredImage: File @fileByRelativePath
       featuredAlt: String
       featuredAltUrl: String

@@ -130,7 +130,7 @@ const BlogPostTemplate = ({ data, location }) => {
           },
           {
             property: `article:modified_time`,
-            content: post.frontmatter.date,
+            content: post.frontmatter.modified_date || post.frontmatter.date,
           },
           {
             property: `article:author`,
@@ -254,6 +254,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        modified_date(formatString: "MMMM DD, YYYY")
         formatdate: date(formatString: "YYYY-MM-DD")
         description
         draft
