@@ -6,4 +6,4 @@ draft: true
 preview: true
 ---
 
-This is how you make a PWA with some great sacrifice and intrigue
+Adding google fonts with tailwind

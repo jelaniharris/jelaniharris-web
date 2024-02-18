@@ -6,9 +6,11 @@ featuredImage: ./images/pexels-wanchai-thiantanawat-10303486.jpg
 featuredAlt: "Photo by Min An"
 featuredAltUrl: "https://www.pexels.com/photo/red-and-white-roller-coaster-on-railings-749061/"
 series: gatsby
-seriesOrder: 1
+seriesOrder: 2
 draft: true
 ---
+
+One of the most important features that I wanted to add to my custom blog was the ability to group a bunch of blog posts into a series. 
 
 In gatsby-config.js add: 
 ```js

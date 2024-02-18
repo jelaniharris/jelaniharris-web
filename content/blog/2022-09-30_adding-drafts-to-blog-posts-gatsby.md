@@ -6,6 +6,8 @@ description: "In this article I will teach you how to add a draft system to your
 featuredImage: ./images/andrew-neel-cckf4TsHAuw-unsplash.jpg
 featuredAlt: "Photo by Andrew Neel on Unsplash"
 featuredAltUrl: "https://unsplash.com/@andrewtneel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+series: gatsby
+seriesOrder: 1
 ---
 
 I have thoroughly enjoyed the migration of my blog from WordPress to Gatsby. However, I did realize that one of the features of WordPress that I missed was the ability to save my blog posts as a draft.
