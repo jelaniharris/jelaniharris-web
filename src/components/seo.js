@@ -60,7 +60,6 @@ const Seo = ({ description, lang, meta, title, image, pageKeywords, ogType, arti
     articleData = article;
   }
 
-
   return (
     <Helmet
       htmlAttributes={{

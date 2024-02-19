@@ -6,7 +6,7 @@ featuredImage: ./images/pexels-wanchai-thiantanawat-10303486.jpg
 featuredAlt: "Photo by Min An"
 featuredAltUrl: "https://www.pexels.com/photo/red-and-white-roller-coaster-on-railings-749061/"
 series: gatsby
-seriesOrder: 2
+seriesOrder: 3
 draft: true
 ---
 
