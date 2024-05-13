@@ -1,7 +1,7 @@
 ---
 title: Fixing ERR_INVALID_THIS error on Vercel using PNPM
-date: "2024-05-12T18:18:60Z"
-modified_date: "2024-05-12T18:18:60Z"
+date: "2024-05-12T03:11:57Z"
+modified_date: "2024-05-12T03:11:57Z"
 tags: ["vercel", "pnpm"]
 featuredImage: ./images/pexels-padrinan-2882552.jpg
 featuredAlt: "Photo by Miguel Á. Padriñán"
