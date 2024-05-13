@@ -4,7 +4,7 @@ date: "2024-05-12T18:18:60Z"
 modified_date: "2024-05-12T18:18:60Z"
 tags: ["vercel", "pnpm"]
 featuredImage: ./images/pexels-padrinan-2882552.jpg
-featuredAlt: "Photo by Miguel Á. Padriñán":
+featuredAlt: "Photo by Miguel Á. Padriñán"
 featuredAltUrl: "https://www.pexels.com/photo/close-up-shot-of-keyboard-buttons-2882552/"
 ---
 
