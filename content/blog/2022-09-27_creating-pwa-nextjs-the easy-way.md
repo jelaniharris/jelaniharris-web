@@ -1,5 +1,5 @@
 ---
-title: How to create a PWA with NextJS
+title: How to create a PWA with NextJS the easy way
 date: "2022-09-27T00:52:03.284Z"
 tags: ["nextjs", "progressive-web-apps"]
 featuredImage: ./images/pexels-pixabay-267350.jpg
