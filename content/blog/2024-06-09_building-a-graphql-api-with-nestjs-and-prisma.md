@@ -3,9 +3,9 @@ title: Building a GraphQL API with NestJS and Prisma
 date: "2024-06-09T16:57:00Z"
 modified_date: "2024-06-09T16:57:00Z"
 tags: ["nestjs", "graphql", "prisma"]
-featuredImage: ./images/pexels-padrinan-2882552.jpg
-featuredAlt: "Photo by Miguel Á. Padriñán"
-featuredAltUrl: "https://www.pexels.com/photo/close-up-shot-of-keyboard-buttons-2882552/"
+featuredImage: ./images/conny-schneider-xuTJZ7uD7PI-unsplash.jpg
+featuredAlt: "Photo by Conny Schneider"
+featuredAltUrl: "https://unsplash.com/@choys_?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
 ## What is NestJS?
@@ -30,11 +30,11 @@ First we’ll start a new NestJs project
 
 ```bash
 yarn global add @nestjs/cli
-nest new tutorial-nextjs-graphql
+nest new tutorial-nestjs-graphql
 yarn start:dev
 ```
 
-This will create a new project directory using the name tutorial-nextjs-graphql and will add some boilerplate files for starting our application. I chose yarn for my package manager and will be using that from now on.
+This will create a new project directory using the name tutorial-nestjs-graphql and will add some boilerplate files for starting our application. I chose yarn for my package manager and will be using that from now on.
 
 Then we will install the required packages we need for this project:
 
