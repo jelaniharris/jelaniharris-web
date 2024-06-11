@@ -1,22 +1,30 @@
 ---
 title: Building a GraphQL API with NestJS and Prisma
 date: "2024-06-09T16:57:00Z"
-modified_date: "2024-06-09T16:57:00Z"
+modified_date: "2024-06-10T11:50:00Z"
 tags: ["nestjs", "graphql", "prisma"]
 featuredImage: ./images/conny-schneider-xuTJZ7uD7PI-unsplash.jpg
 featuredAlt: "Photo by Conny Schneider"
 featuredAltUrl: "https://unsplash.com/@choys_?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
+In this tutorial I will show you how to create a GraphQL API using Nest.JS with a Prisma.IO database. In my recent project at work we are using all three of these technologies and I thought it would be great to provide a walkthrough on how you can get this stack working for yourself.
+
+If you hate reading and only want the source code, you can look at it [here](https://github.com/jelaniharris/nestjs-graphql-example).
+
+Since you're along for the ride, let's describe what we're using:
+
 ## What is NestJS?
 
-NestJS is a Node.js framework for building efficient, reliable, and scalable server-side applications. It uses modern TypeScript and provides a level of abstraction above common Node.js frameworks (Express.js and Fastify for example). It also exposes their APIs directly to the developer which allows us the freedom to use the myriad of third-party modules which are available for the underlying platform
+[Nest.JS](https://nestjs.com/) is a Node.js framework for building efficient, reliable, and scalable server-side applications. It uses modern TypeScript and provides a level of abstraction above common Node.js frameworks (Express.js and Fastify for example). It also exposes their APIs directly to the developer which allows us the freedom to use the myriad of third-party modules which are available for the underlying platform
 
 I highly recommend using something like NestJs if you want a Javascript backend api that is like express but with modern modularity, dynamic injection, enterprise and microservice ready.
 
 ## What is GraphQL?
 
-GraphQL is a query language for your api that is designed to provide the data that you request exactly the way you want it and in the format you need it to be in. You describe the shape of your data in a single request and the server responds with that data. This means that data retrieval using GraphQL is efficient.
+[GraphQL](https://graphql.org/) is a query language for your api that is designed to provide the data that you request exactly the way you want it and in the format you need it to be in. You describe the shape of your data in a single request and the server responds with that data. This means that data retrieval using GraphQL is efficient.
+
+In our case we'll be using the [@nestjs/graphql](https://www.npmjs.com/package/@nestjs/graphql) package to provide support for our graph in NestJs
 
 ## What is Prisma?
 
