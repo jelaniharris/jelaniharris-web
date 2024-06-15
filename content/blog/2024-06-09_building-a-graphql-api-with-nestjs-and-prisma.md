@@ -1,7 +1,7 @@
 ---
 title: Building a GraphQL API with NestJS and Prisma
 date: "2024-06-09T16:57:00Z"
-modified_date: "2024-06-10T11:50:00Z"
+modified_date: "2024-06-15T4:50:00Z"
 tags: ["nestjs", "graphql", "prisma"]
 featuredImage: ./images/conny-schneider-xuTJZ7uD7PI-unsplash.jpg
 featuredAlt: "Photo by Conny Schneider"
@@ -30,7 +30,7 @@ In our case we'll be using the [@nestjs/graphql](https://www.npmjs.com/package/@
 
 [Prisma.IO](http://Prisma.IO) is an ORM (Object Relational Mapping) tool that will help you work with databases more easily by providing an easy-to-use way to access your database by using simple commands instead of long SQL queries.
 
-For this example, we’ll be using Sqlite as a database for convenience. But you can use databases like MySql, PostgreSQL and MongoDB.
+For this example, we’ll be using Sqlite as a database for convenience. But you can use databases like MySql, PostgreSQL and MongoDB with Prisma.
 
 ## Installing NestJs and GraphQL
 
@@ -42,7 +42,7 @@ nest new tutorial-nestjs-graphql
 yarn start:dev
 ```
 
-This will create a new project directory using the name tutorial-nestjs-graphql and will add some boilerplate files for starting our application. I chose yarn for my package manager and will be using that from now on.
+This will create a new project directory using the name `tutorial-nestjs-graphql` and will add some boilerplate files for starting our application. I chose yarn for my package manager and will be using that from now on.
 
 Then we will install the required packages we need for this project:
 
