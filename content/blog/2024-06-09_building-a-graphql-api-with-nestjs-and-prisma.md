@@ -77,13 +77,15 @@ NestJs offers two ways of building a graphql api: Code-First and Schema-First
 
 ### Code First Schema
 
-With the code first approach, the corresponding GraphQL schema is generated using decorators and TypeScript classes. This method is beneficial for those who wish to work solely with TypeScript and eliminate the need to switch between different language syntaxes.
+With the **Code First** approach, the GraphQL schema is generated using decorators and TypeScript classes. This method of schema generation is beneficial for those who wish to work solely with TypeScript and eliminate the need to switch between different language syntaxes.
 
 ### Schema First
 
-In the Schema First approach, the primary reference is the SDL (Schema Definition Language) files of GraphQL. SDL is a universal method that allows the sharing of schema files across various platforms, regardless of the language. NestJs automatically produces your TypeScript definitions (utilizing either classes or interfaces) based on the GraphQL schemas, minimizing the necessity for repetitive code.
+In the **Schema First** approach, the primary reference is the SDL (Schema Definition Language) files of GraphQL. SDL is a universal method that allows the sharing of schema files across various platforms, regardless of the language.
 
-**We’re going to go Schema First** because a lot of other approaches use the Code First and I would like to show a different method for creating your GraphQL Schema.
+NestJs automatically produces your TypeScript definitions (utilizing either classes or interfaces depending on your settings) based on the GraphQL schemas, minimizing the necessity for you to write repetitive code.
+
+**We’re going to go Schema First** because a lot of other approaches use the Code First and I would like to show a different method for creating your GraphQL Schema. the [NestJS documentation about GraphQL](https://docs.nestjs.com/graphql/quick-start#code-first) provides a ton of examples about what a Code First approach would look like.
 
 ### Create a Nest Resource
 
