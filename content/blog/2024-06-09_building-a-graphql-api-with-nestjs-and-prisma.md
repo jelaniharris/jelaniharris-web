@@ -292,7 +292,7 @@ export class UpdatePostInput extends PartialType(CreatePostInput) {
 }
 ```
 
-That will represent the input necessary to update a post. Notice that this is extending the CreatePostInput DTO but it requires an ID.
+That will represent the input necessary to update a post. Also, notice that this is extending the CreatePostInput DTO but it requires an ID.
 
 ### Updating Post Resolver
 
@@ -405,7 +405,7 @@ You should get output that resembles:
 [Nest] 2800  - 06/09/2024, 3:56:29 PM     LOG [NestApplication] Nest application successfully started +2ms
 ```
 
-Now you have your api up and running! Now let’s try to make a query against it.
+Now you have your api up and running! Now let’s try to make a graphql query against it.
 
 ## How to use GraphQL Playground
 
@@ -436,7 +436,7 @@ That graphql will create a new post. If you hit the large play button between th
 
 ![GraphQL Create Result](./images/building-a-graphql-api-with-nestjs-and-prisma/graphql-playground-create-result.png)
 
-### How do I get that data back?
+### So how do I get that data back?
 
 Now let’s try to get that data back from our post. Use this query to get the id back that you just created.
 
