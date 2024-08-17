@@ -1,7 +1,7 @@
 ---
 title: Building a GraphQL API with NestJS and Prisma
 date: "2024-06-09T16:57:00Z"
-modified_date: "2024-06-15T4:50:00Z"
+modified_date: "2024-07-20T4:50:00Z"
 tags: ["nestjs", "graphql", "prisma"]
 featuredImage: ./images/conny-schneider-xuTJZ7uD7PI-unsplash.jpg
 featuredAlt: "Photo by Conny Schneider"
