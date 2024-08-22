@@ -11,16 +11,16 @@ In Javascript, you sometimes may find yourself needing to assign an attribute to
 
 There are currently two ways of doing this:
 
-## What’s the old way?
+## What’s the old way? (Pre ES6)
 
-The old way that you used to do this was to make the object first and then use the brackets (`[]`) to set it
+The old way that you used to do this was to make the object first and then use bracket notation (`[]`) to set it.
 
 ```tsx
 var wantedKey = "timesJumped"
 var person = {}
 
 person[wantedKey] = 250
-console.log(person)
+console.log(person) // Will output {"timesJumped": 250}
 ```
 
 ## The new ES6 way to assign an object key
