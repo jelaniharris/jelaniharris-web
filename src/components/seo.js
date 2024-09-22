@@ -9,12 +9,23 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import GenericLogo from '../images/logo.png'
-import FavIcon64x64 from '../images/favicon-64x64.png'
-import FavIcon32x32 from '../images/favicon-32x32.png'
-import FavIcon16x16 from '../images/favicon-16x16.png'
+import GenericLogo from "../images/logo.png"
+import FavIcon64x64 from "../images/favicon-64x64.png"
+import FavIcon32x32 from "../images/favicon-32x32.png"
+import FavIcon16x16 from "../images/favicon-16x16.png"
 
-const Seo = ({ description, lang, meta, title, image, pageKeywords, ogType, article, url}) => {
+const Seo = ({
+  description,
+  canonical,
+  lang,
+  meta,
+  title,
+  image,
+  pageKeywords,
+  ogType,
+  article,
+  url,
+}) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -37,75 +48,84 @@ const Seo = ({ description, lang, meta, title, image, pageKeywords, ogType, arti
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description;
-  const defaultTitle = site.siteMetadata?.title;
-  const author = site.siteMetadata?.author?.name;
-  const siteImage = image || {width: 941, height: 529, src: `${site.siteMetadata.siteUrl}${GenericLogo}`};
-  const keywords = pageKeywords || site.siteMetadata.keywords;
+  const metaDescription = description || site.siteMetadata.description
+  const defaultTitle = site.siteMetadata?.title
+  const author = site.siteMetadata?.author?.name
+  const siteImage = image || {
+    width: 941,
+    height: 529,
+    src: `${site.siteMetadata.siteUrl}${GenericLogo}`,
+  }
+  const keywords = pageKeywords || site.siteMetadata.keywords
 
-  let pageTitle = title;
-  let titleTemplate = null;
+  let pageTitle = title
+  let titleTemplate = null
   if (title === "Home") {
-    titleTemplate = defaultTitle;
-    pageTitle = defaultTitle;
+    titleTemplate = defaultTitle
+    pageTitle = defaultTitle
   } else {
-    titleTemplate = defaultTitle ? `%s | ${defaultTitle}` : null;
+    titleTemplate = defaultTitle ? `%s | ${defaultTitle}` : null
   }
 
-  let cleanKeywords = '';
-  cleanKeywords = keywords.map((keyword) => keyword.trim()).join(' ');
+  let cleanKeywords = ""
+  cleanKeywords = keywords.map(keyword => keyword.trim()).join(" ")
 
   let articleData = []
   if (article) {
-    articleData = article;
+    articleData = article
   }
 
   return (
     <Helmet
       htmlAttributes={{
-        lang
+        lang,
       }}
       link={[
         {
           rel: "icon",
           type: "image/png",
           sizes: "16x16",
-          href: FavIcon16x16
+          href: FavIcon16x16,
         },
         {
           rel: "icon",
           type: "image/png",
           sizes: "32x32",
-          href: FavIcon32x32
+          href: FavIcon32x32,
         },
         {
           rel: "shortcut icon",
           type: "image/png",
-          href: FavIcon64x64
-        }
+          href: FavIcon64x64,
+        },
+        {
+          rel: "canonical",
+          href: canonical,
+        },
       ]}
       title={pageTitle}
       titleTemplate={titleTemplate}
       meta={[
         {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
+          name: "viewport",
+          content:
+            "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
         },
         {
-          itemprop: 'name',
-          content: author
+          itemprop: "name",
+          content: author,
         },
         {
-          itemprop: 'keywords',
-          content: cleanKeywords
+          itemprop: "keywords",
+          content: cleanKeywords,
         },
         {
-          itemprop: 'description',
-          content: metaDescription
+          itemprop: "description",
+          content: metaDescription,
         },
         {
-          itemprop: 'image',
-          content: siteImage.src
+          itemprop: "image",
+          content: siteImage.src,
         },
         {
           name: `description`,
@@ -117,7 +137,7 @@ const Seo = ({ description, lang, meta, title, image, pageKeywords, ogType, arti
         },
         {
           property: `og:site_name`,
-          content: defaultTitle
+          content: defaultTitle,
         },
         {
           property: `og:description`,
@@ -129,27 +149,27 @@ const Seo = ({ description, lang, meta, title, image, pageKeywords, ogType, arti
         },
         {
           property: `og:image`,
-          content: siteImage.src
+          content: siteImage.src,
         },
         {
           property: `og:image:secure_url`,
-          content: siteImage.src
+          content: siteImage.src,
         },
         {
           property: `og:image:width`,
-          content: siteImage.width
+          content: siteImage.width,
         },
         {
           property: `og:image:height`,
-          content: siteImage.height
+          content: siteImage.height,
         },
         {
           name: `twitter:card`,
           content: `summary`,
         },
         {
-          name: 'twitter:image',
-          content: siteImage.src
+          name: "twitter:image",
+          content: siteImage.src,
         },
         {
           name: `twitter:creator`,
@@ -180,7 +200,7 @@ Seo.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
-  article: []
+  article: [],
 }
 
 Seo.propTypes = {
@@ -189,7 +209,7 @@ Seo.propTypes = {
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
   image: PropTypes.object,
-  pageKeywords:  PropTypes.arrayOf(PropTypes.string),
+  pageKeywords: PropTypes.arrayOf(PropTypes.string),
   ogType: PropTypes.string,
   url: PropTypes.string,
   article: PropTypes.arrayOf(PropTypes.object),
