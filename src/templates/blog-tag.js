@@ -62,6 +62,7 @@ const BlogTagTemplate = ({ data, pageContext, location }) => {
       <Seo
         title={`Posts tagged with ${tag}`}
         description={`Here are all of the blog posts tagged with ${tag}`}
+        canonical={`${data.site.siteMetadata.siteUrl}/blog/tag/${tag}`}
       />
       <div className="container py-3">
         <h1 className="title is-2">{tagHeader}</h1>
@@ -76,47 +77,47 @@ const BlogTagTemplate = ({ data, pageContext, location }) => {
 export default BlogTagTemplate
 
 export const pageQuery = graphql`
-query ($tag: String) {
-  site {
-    siteMetadata {
-      keywords
-      title
-      siteUrl
-      author {
-        name
-      }
-    }
-  }
-  allMarkdownRemark(
-    limit: 2000
-    sort: { frontmatter: { date: DESC } }
-    filter: {
-      frontmatter: { tags: { in: [$tag] } }
-      fields: { released: { eq: true } }
-    }
-  ) {
-    totalCount
-    nodes {
-      excerpt(pruneLength: 270)
-      fields {
-        uniqueid
-        slug
-        released
-      }
-      frontmatter {
+  query ($tag: String) {
+    site {
+      siteMetadata {
+        keywords
         title
-        tags
-        description
-        draft
-        featuredImage {
-          childImageSharp {
-            gatsbyImageData(layout: FIXED, width: 400)
-          }
+        siteUrl
+        author {
+          name
         }
-        date(formatString: "MMMM DD, YYYY")
-        formatdate: date(formatString: "YYYY-MM-DD")
+      }
+    }
+    allMarkdownRemark(
+      limit: 2000
+      sort: { frontmatter: { date: DESC } }
+      filter: {
+        frontmatter: { tags: { in: [$tag] } }
+        fields: { released: { eq: true } }
+      }
+    ) {
+      totalCount
+      nodes {
+        excerpt(pruneLength: 270)
+        fields {
+          uniqueid
+          slug
+          released
+        }
+        frontmatter {
+          title
+          tags
+          description
+          draft
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData(layout: FIXED, width: 400)
+            }
+          }
+          date(formatString: "MMMM DD, YYYY")
+          formatdate: date(formatString: "YYYY-MM-DD")
+        }
       }
     }
   }
-}
 `

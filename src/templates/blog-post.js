@@ -116,6 +116,7 @@ const BlogPostTemplate = ({ data, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
         ogType="article"
+        canonical={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
         image={{
           src: originalImage
             ? `${data.site.siteMetadata.siteUrl}${originalImage}`
@@ -188,7 +189,11 @@ const BlogPostTemplate = ({ data, location }) => {
           />
           <hr />
           <section id="blog-series">
-              <Series series={post.frontmatter.series} previousSeries={previousSeries} nextSeries={nextSeries}/>
+            <Series
+              series={post.frontmatter.series}
+              previousSeries={previousSeries}
+              nextSeries={nextSeries}
+            />
           </section>
           <footer>
             <Bio />
