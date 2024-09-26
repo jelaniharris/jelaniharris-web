@@ -95,6 +95,7 @@ const Projects = ({ data, location }) => {
         description={
           "Projects made by me in the past, or ones I'm currently working on"
         }
+        canonical={`${data.site.siteMetadata.siteUrl}/projects`}
       />
       <article
         className="webpage content py-5"
@@ -129,11 +130,12 @@ const Projects = ({ data, location }) => {
           <ImageGallery items={smarterImages} lazyLoad />
 
           <p>
-            <strong>Smarter-Spreadsheets'</strong> objective was to create a web presence for a
-            former educator who wanted to alleviate the data responsibilities on
-            school staff by providing a resource to help them do more with less.
-            Smarter-Spreadsheets offers consulting for data management,
-            improving efficiencies, and providing data analysis.
+            <strong>Smarter-Spreadsheets'</strong> objective was to create a web
+            presence for a former educator who wanted to alleviate the data
+            responsibilities on school staff by providing a resource to help
+            them do more with less. Smarter-Spreadsheets offers consulting for
+            data management, improving efficiencies, and providing data
+            analysis.
           </p>
 
           <p>
@@ -159,7 +161,12 @@ const Projects = ({ data, location }) => {
             a new project from the bottom up again.
           </p>
 
-          <a target="_blank" rel="noreferrer" href="https://smarter-spreadsheets.com" className="button is-link is-medium is-fullwidth">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://smarter-spreadsheets.com"
+            className="button is-link is-medium is-fullwidth"
+          >
             View Site
           </a>
         </div>
