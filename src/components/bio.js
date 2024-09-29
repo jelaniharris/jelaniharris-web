@@ -8,6 +8,7 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
+import SocialIcons from "./social-icons"
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
@@ -18,9 +19,6 @@ const Bio = () => {
             name
             summary
           }
-          social {
-            twitter
-          }
         }
       }
     }
@@ -28,7 +26,6 @@ const Bio = () => {
 
   // Set these values by editing "siteMetadata" in gatsby-config.js
   const author = data.site.siteMetadata?.author
-  const social = data.site.siteMetadata?.social
 
   return (
     <div className="bio message is-medium">
@@ -36,24 +33,23 @@ const Bio = () => {
         <article className="media">
           <figure className="media-left">
             <StaticImage
-              className="bio-avatar"
+              className="bio-avatar is-rounded"
               layout="fixed"
               formats={["auto", "webp", "avif"]}
               src="../images/profile-pic.png"
-              width={50}
-              height={50}
-              quality={95}
+              width={80}
+              height={80}
+              quality={75}
               alt="Profile picture"
             />
           </figure>
           <div className="media-content">
             {author?.name && (
               <p>
-                Written by <strong itemProp="author">{author.name}</strong> {author?.summary || null}
+                Written by <strong itemProp="author">{author.name}</strong>{" "}
+                {author?.summary || null}
                 {` `}
-                <a href={`https://twitter.com/${social?.twitter || ``}`}>
-                  You should follow them on Twitter
-                </a>
+                <SocialIcons id="f_social_icons" />
               </p>
             )}
           </div>
