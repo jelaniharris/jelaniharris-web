@@ -96,6 +96,7 @@ const HeroTechnologies = () => {
               data-tooltip-id="my-tooltip"
               data-tooltip-content={tech.name}
               className="image is-64x64 techimage"
+              key={tech.name}
             >
               <img src={tech.data} alt={tech.name} />
             </div>
