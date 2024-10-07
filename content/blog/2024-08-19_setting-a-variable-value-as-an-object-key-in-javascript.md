@@ -1,7 +1,9 @@
 ---
-title: "Setting a variable value as an object key in Javascript: The Simplest Way"
+title: "Setting a variable value as an object key in Javascript"
 date: "2024-08-17T22:31:00.000Z"
+modified_date: "2024-10-13T20:24:00Z"
 tags: ["javascript"]
+description: "You sometimes may find yourself needing to assign an attribute to an object based off the value of another variable. I show you the easiest way."
 featuredImage: ./images/pexels-pixabay-39389.jpg
 featuredAlt: "Photo by Pixabay from Pexels"
 featuredAltUrl: "https://www.pexels.com/photo/brass-ornate-vintage-key-on-black-computer-keyboard-39389/"
