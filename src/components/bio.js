@@ -49,9 +49,9 @@ const Bio = () => {
                 Written by <strong itemProp="author">{author.name}</strong>{" "}
                 {author?.summary || null}
                 {` `}
-                <SocialIcons id="f_social_icons" />
               </p>
             )}
+            <SocialIcons id="f_social_icons" />
           </div>
         </article>
       </div>
