@@ -17,7 +17,7 @@ import FavIcon16x16 from "../images/favicon-16x16.png"
 const Seo = ({
   description,
   canonical,
-  lang,
+  lang = "en",
   meta,
   title,
   image,
@@ -51,11 +51,13 @@ const Seo = ({
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
   const author = site.siteMetadata?.author?.name
-  const siteImage = image || {
-    width: 941,
-    height: 529,
-    src: `${site.siteMetadata.siteUrl}${GenericLogo}`,
-  }
+  const siteImage = image
+    ? { src: image, width: 1200, height: 675 }
+    : {
+        width: 941,
+        height: 529,
+        src: `${site.siteMetadata.siteUrl}${GenericLogo}`,
+      }
   const keywords = pageKeywords || site.siteMetadata.keywords
 
   let pageTitle = title
@@ -206,9 +208,10 @@ Seo.defaultProps = {
 Seo.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
+  canonical: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
-  image: PropTypes.object,
+  image: PropTypes.string,
   pageKeywords: PropTypes.arrayOf(PropTypes.string),
   ogType: PropTypes.string,
   url: PropTypes.string,
