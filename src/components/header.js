@@ -13,21 +13,21 @@ const Header = ({ location, title }) => {
   if (isRootPath) {
     mainHeading = (
       <div className="navbar-item">
-        <h1 className="main-heading">
+        <div className="main-heading">
           <Link to="/">
             <img src={siteLogo} alt="Jelani Harris Logo" width="350" />
           </Link>
-        </h1>
+        </div>
       </div>
     )
   } else {
     mainHeading = (
       <div className="navbar-item">
-        <h1 className="main-heading">
+        <div className="main-heading">
           <Link className="header-link-home" to="/">
             <img src={siteLogo} width="350" alt="Jelani Harris Logo" />
           </Link>
-        </h1>
+        </div>
       </div>
     )
   }
@@ -37,7 +37,7 @@ const Header = ({ location, title }) => {
       <div className="navbar-brand">
         {mainHeading}
         <button
-          className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
+          className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
@@ -50,7 +50,7 @@ const Header = ({ location, title }) => {
           <span aria-hidden="true"></span>
         </button>
       </div>
-      <div className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
+      <div className={`navbar-menu ${isActive ? "is-active" : ""}`}>
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
             <Link className="header-link-home" to="/">
