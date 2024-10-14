@@ -137,7 +137,7 @@ const SiteIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle} noContainer={true}>
-      <Seo title="Home" canonical={`${siteUrl}`} />
+      <Seo title="Home" canonical={siteUrl} url={siteUrl} />
       <HeroMe />
       <HeroTechnologies />
       <div className="recent-activity">

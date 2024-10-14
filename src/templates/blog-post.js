@@ -7,7 +7,11 @@ import Seo from "../components/seo"
 import PreMain from "../components/premain"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faComment, faHome } from "@fortawesome/free-solid-svg-icons"
+import {
+  faComment,
+  faHome,
+  faCalendar,
+} from "@fortawesome/free-solid-svg-icons"
 import { Disqus } from "gatsby-plugin-disqus"
 import ShowTags from "../components/common/showTags"
 
@@ -117,11 +121,11 @@ const BlogPostTemplate = ({ data, location }) => {
         description={post.frontmatter.description || post.excerpt}
         ogType="article"
         canonical={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
-        image={{
-          src: originalImage
-            ? `${data.site.siteMetadata.siteUrl}${originalImage}`
-            : null,
-        }}
+        image={
+          originalImage ??
+          `${data.site.siteMetadata.siteUrl}${originalImage}` ??
+          null
+        }
         pageKeywords={tags}
         url={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
         article={[
@@ -157,9 +161,12 @@ const BlogPostTemplate = ({ data, location }) => {
               {post.frontmatter.title}
             </h1>
             <div className="subtitle is-5 ml-1 is-flex is-justify-content-space-between">
-              <time dateTime={post.frontmatter.formatdate} className="mr-3">
-                {post.frontmatter.date}
-              </time>
+              <div>
+                <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+                <time dateTime={post.frontmatter.formatdate} className="mr-3">
+                  {post.frontmatter.date}
+                </time>
+              </div>
               <meta itemProp="url" content={url} />
               <span>
                 <ShowTags tags={tags} />
