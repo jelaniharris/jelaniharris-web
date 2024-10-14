@@ -162,7 +162,7 @@ const BlogPostTemplate = ({ data, location }) => {
             </h1>
             <div className="subtitle is-5 ml-1 is-flex is-justify-content-space-between">
               <div>
-                <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+                <FontAwesomeIcon size="xs" icon={faCalendar} className="mr-2" />
                 <time dateTime={post.frontmatter.formatdate} className="mr-3">
                   {post.frontmatter.date}
                 </time>
