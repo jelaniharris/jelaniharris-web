@@ -13,7 +13,7 @@ const BreadCrumbs = ({ crumbs }) => {
               className={crumb.isCurrent ? "is-active" : ""}
               aria-current="page"
             >
-              {!crumb.isCurrent ? (
+              {!crumb.isCurrent && crumb.path ? (
                 <Link to={crumb.path}>
                   {crumb.icon && (
                     <span className="icon is-small">
