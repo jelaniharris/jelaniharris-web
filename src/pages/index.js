@@ -7,7 +7,7 @@ import Seo from "../components/seo"
 import Masonry from "react-masonry-css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faComment } from "@fortawesome/free-solid-svg-icons"
+import { faComment, faEnvelope } from "@fortawesome/free-solid-svg-icons"
 
 import HeroMe from "../components/home/hero-me"
 import HeroTechnologies from "../components/home/hero-technologies"
@@ -19,6 +19,7 @@ const SiteIndex = ({ data, location }) => {
   const siteUrl =
     data.site.siteMetadata?.siteUrl || `https://www.jelaniharris.com`
   const posts = data.allMarkdownRemark.nodes
+  const contentFullPosts = data.allContentfulBlogPost.nodes
 
   const breakpointColumnsObj = {
     default: 4,
@@ -27,7 +28,7 @@ const SiteIndex = ({ data, location }) => {
     700: 1,
   }
 
-  if (posts.length === 0) {
+  if (posts.length === 0 || contentFullPosts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
         <Seo title="All posts" />
@@ -41,20 +42,23 @@ const SiteIndex = ({ data, location }) => {
     )
   }
 
-  const BlogPost = ({ content }) => {
+  const BlogPost = ({ content, type }) => {
+    const cardHeaderClass = type === 'blog' ? 'card-header-blog' : 'card-header-post'
+    const cardHeaderTitle = type === 'blog' ? 'Blog' : 'Post'
+    const cardHeaderIcon = type === 'blog' ? faComment : faEnvelope
     return (
       <div key={`blog-${content.slug}`}>
         <article itemScope itemType="http://schema.org/Article">
           <div className="card mb-3">
             <div
-              className={`card-header card-header-blog ${
+              className={`card-header ${cardHeaderClass} ${
                 content.draft ? "card-header-blog-draft" : ""
               } is-justify-content-center`}
             >
               <span className="is-size-4">
-                <FontAwesomeIcon icon={faComment} />
+                <FontAwesomeIcon icon={cardHeaderIcon} />
               </span>
-              <span className="is-size-4 ml-2">Blog</span>
+              <span className="is-size-4 ml-2">{cardHeaderTitle}</span>
             </div>
             <figure className="card-image image">
               {content.featuredImage && (
@@ -125,12 +129,28 @@ const SiteIndex = ({ data, location }) => {
     })
   })
 
+  // Put the contentful blogs into there
+  contentFullPosts.forEach(post => {
+    contents.push({
+      type: "post",
+      title: post.title,
+      tags: post.tags || [],
+      slug: post.fields.slug,
+      url: post.fields.slug,
+      draft: false,
+      content: post.description?.description ?? post.content.raw,
+      featuredImage: getImage(post.featuredImage),
+      created_at: post.date,
+      created_at_date: new Date(post.date),
+    })
+  })
+
   // Then sort contents by the array
   contents = contents.sort((a, b) => b.created_at_date - a.created_at_date)
 
   const contentElements = contents.map((data, index) => {
-    if (data.type === "blog") {
-      return <BlogPost content={data} key={`content-${index}`} />
+    if (data.type === "blog" || data.type === "post") {
+      return <BlogPost content={data} key={`content-${index}`} type={data.type} />
     }
     return <></>
   })
@@ -187,6 +207,26 @@ export const pageQuery = graphql`
             }
           }
           tags
+        }
+      }
+    }
+    allContentfulBlogPost(sort: {createdAt: DESC}) {
+      nodes {
+        title
+        updatedAt
+        tags
+        fields {
+          slug
+        }
+        description {
+          description
+        }
+        content {
+          raw
+        }
+        date: createdAt(formatString: "MMMM DD, YYYY")
+        featuredImage {
+          gatsbyImageData(layout: FIXED, width: 300)
         }
       }
     }
