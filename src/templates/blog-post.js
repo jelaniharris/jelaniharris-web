@@ -6,22 +6,26 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PreMain from "../components/premain"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faComment,
   faHome,
-  faCalendar,
 } from "@fortawesome/free-solid-svg-icons"
-import { Disqus } from "gatsby-plugin-disqus"
-import ShowTags from "../components/common/showTags"
 
 import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image"
 import DraftBlock from "../components/common/draftBlock"
 import Series from "../components/blog/series"
+import { CommentsProvider } from "../contexts/comments.context"
+import { CommentsContainerButton } from "../components/blog/CommentsContainerButton"
+import { FigureCaption } from "../components/common/FigureCaption"
+import BreadCrumbs from "../components/common/BreadCrumbs"
+import BlogHeader from "../components/blog/BlogHeader"
+import BlogFeaturedImage from "../components/blog/BlogFeaturedImage"
+import BlogDraftIndicator from "../components/blog/BlogDraftIndicator"
+import BlogContent from "../components/blog/BlogContent"
+import BlogBottomNav from "../components/blog/BlogBottomNav"
+import BlogComments from "../components/blog/BlogComments"
 
 const BlogPostTemplate = ({ data, location }) => {
-  const [showComments, setShowComments] = React.useState(false)
-
   const post = data.markdownRemark
   const siteTitle = `${post.frontmatter.title || "Blog Post"} | ${
     data.site.siteMetadata.title
@@ -34,204 +38,94 @@ const BlogPostTemplate = ({ data, location }) => {
   const { previous, next, previousSeries, nextSeries } = data
   const url = typeof window !== "undefined" ? window.location.href : ""
 
-  const getCaption = () => {
-    if (!featuredAlt) {
-      return <></>
-    }
-
-    const figCaptionClasses =
-      "image-credit is-size-6 has-text-centered has-text-weight-light"
-
-    if (featuredAltUrl) {
-      return (
-        <figcaption className={figCaptionClasses}>
-          <a href={featuredAltUrl} target="_blank" rel="noreferrer">
-            {featuredAlt}
-          </a>
-        </figcaption>
-      )
-    } else {
-      return (
-        <figcaption className={figCaptionClasses}>{featuredAlt}</figcaption>
-      )
-    }
-  }
-
-  const ShowCommentsContainer = () => {
-    if (showComments) {
-      return (
-        <Disqus
-          config={{
-            /* Replace PAGE_URL with your post's canonical URL variable */
-            url: url,
-            /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
-            identifier: post.fields.uniqueid,
-            /* Replace PAGE_TITLE with the title of the page */
-            title: post.frontmatter.title,
-          }}
-        />
-      )
-    } else {
-      return (
-        <button
-          className="button is-link is-medium is-fullwidth"
-          onClick={() => setShowComments(true)}
-        >
-          Read or Write a Comment
-        </button>
-      )
-    }
-  }
-
   return (
-    <Layout
-      location={location}
-      title={siteTitle}
-      noContainer
-      preMain={
-        <PreMain additionalClasses="breadcrumbs">
-          <nav className="breadcrumb is-medium" aria-label="breadcrumbs">
-            <ul>
-              <li>
-                <Link to="/">
-                  <span className="icon is-small">
-                    <FontAwesomeIcon icon={faHome} />
-                  </span>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog">
-                  <span className="icon is-small">
-                    <FontAwesomeIcon icon={faComment} />
-                  </span>
-                  Blog
-                </Link>
-              </li>
-              <li className="is-active" aria-current="page">
-                <span>{post.frontmatter.title}</span>
-              </li>
-            </ul>
-          </nav>
-        </PreMain>
-      }
-    >
-      <Seo
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
-        ogType="article"
-        canonical={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
-        image={
-          originalImage ??
-          `${data.site.siteMetadata.siteUrl}${originalImage}` ??
-          null
+    <CommentsProvider>
+      <Layout
+        location={location}
+        title={siteTitle}
+        noContainer
+        preMain={
+          <PreMain additionalClasses="breadcrumbs">
+            <BreadCrumbs crumbs={
+              [
+                {path: "/", label: 'Home', icon: faHome},
+                {path: "/blog", label: 'Blog', icon: faComment},
+                {label: post.frontmatter.title, isCurrent: true},
+              ]
+            }  />  
+          </PreMain>
         }
-        pageKeywords={tags}
-        url={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
-        article={[
-          {
-            property: `article:published_time`,
-            content: post.frontmatter.date,
-          },
-          {
-            property: `article:modified_time`,
-            content: post.frontmatter.modified_date || post.frontmatter.date,
-          },
-          {
-            property: `article:author`,
-            content: data.site.siteMetadata?.author?.name,
-          },
-          {
-            property: `article:tag`,
-            content:
-              tags && tags.length > 0
-                ? tags.join(", ")
-                : data.site.siteMetadata?.keywords.join(", "),
-          },
-        ]}
-      />
-      <div className="container pt-3">
-        <article
-          className="blog-post"
-          itemScope
-          itemType="http://schema.org/Article"
-        >
-          <header className="mb-5 pb-3">
-            <h1 className="title is-1" itemProp="headline">
-              {post.frontmatter.title}
-            </h1>
-            <div className="subtitle is-5 ml-1 is-flex is-justify-content-space-between">
-              <div>
-                <FontAwesomeIcon size="xs" icon={faCalendar} className="mr-2" />
-                <time dateTime={post.frontmatter.formatdate} className="mr-3">
-                  {post.frontmatter.date}
-                </time>
-              </div>
-              <meta itemProp="url" content={url} />
-              <span>
-                <ShowTags tags={tags} />
-              </span>
-            </div>
-          </header>
+      >
+        <Seo
+          title={post.frontmatter.title}
+          description={post.frontmatter.description || post.excerpt}
+          ogType="article"
+          canonical={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
+          image={
+            originalImage ??
+            `${data.site.siteMetadata.siteUrl}${originalImage}` ??
+            null
+          }
+          pageKeywords={tags}
+          url={`${data.site.siteMetadata.siteUrl}${post.fields.slug}`}
+          article={[
+            {
+              property: `article:published_time`,
+              content: post.frontmatter.date,
+            },
+            {
+              property: `article:modified_time`,
+              content: post.frontmatter.modified_date || post.frontmatter.date,
+            },
+            {
+              property: `article:author`,
+              content: data.site.siteMetadata?.author?.name,
+            },
+            {
+              property: `article:tag`,
+              content:
+                tags && tags.length > 0
+                  ? tags.join(", ")
+                  : data.site.siteMetadata?.keywords.join(", "),
+            },
+          ]}
+        />
+        <div className="container pt-3">
+          <article
+            className="blog-post"
+            itemScope
+            itemType="http://schema.org/Article"
+          >
+            <BlogHeader title={post.frontmatter.title} date={post.frontmatter.date} formattedDate={post.frontmatter.formatdate} tags={tags} url={url} />
+            <BlogDraftIndicator post={post} />
+            <BlogFeaturedImage siteUrl={data.site.siteMetadata.siteUrl} originalImage={originalImage} featuredImgFluid={featuredImgFluid} featuredAlt={featuredAlt} featuredAltUrl={featuredAltUrl} />
+            <BlogContent post={post} />
+            <hr />
+            <section id="blog-series">
+              <Series
+                series={post.frontmatter.series}
+                previousSeries={previousSeries}
+                nextSeries={nextSeries}
+              />
+            </section>
+            <footer>
+              <Bio />
+            </footer>
+          </article>
 
-          <div className="mb-5">
-            <meta
-              itemProp="image"
-              content={
-                originalImage
-                  ? `${data.site.siteMetadata.siteUrl}${originalImage}`
-                  : ""
-              }
-            />
-            <figure className="post-image">
-              <GatsbyImage alt={featuredAlt} image={featuredImgFluid} />
-            </figure>
-            {getCaption()}
-          </div>
-          {post.frontmatter.draft && <DraftBlock />}
-          <section
-            className="content"
-            dangerouslySetInnerHTML={{ __html: post.html }}
-            itemProp="articleBody"
-          />
-          <hr />
-          <section id="blog-series">
-            <Series
-              series={post.frontmatter.series}
-              previousSeries={previousSeries}
-              nextSeries={nextSeries}
-            />
-          </section>
-          <footer>
-            <Bio />
-          </footer>
-        </article>
-
-        <nav className="blog-post-nav my-5">
-          <ul>
-            <li>
-              {previous && (
-                <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
-                </Link>
-              )}
-            </li>
-            <li>
-              {next && (
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
-                </Link>
-              )}
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <section id="blog-comments">
-        <div className="container">
-          <ShowCommentsContainer />
+          <BlogBottomNav previous={{
+            slug: previous?.fields.slug,
+            title: previous?.frontmatter.title,
+            featuredImage: previous?.frontmatter.featuredImage,
+          }} next={{
+            slug: next?.fields.slug,
+            title: next?.frontmatter.title,
+            featuredImage: next?.frontmatter.featuredImage,
+          }} />
         </div>
-      </section>
-    </Layout>
+        <BlogComments post={post} url={url} />
+      </Layout>
+    </CommentsProvider>
   )
 }
 
