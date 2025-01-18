@@ -8,9 +8,19 @@ import PreMain from "../components/premain"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHome } from "@fortawesome/free-solid-svg-icons"
+import BreadCrumbs from "../components/common/BreadCrumbs"
 
 const BlogIndex = ({ data, location }) => {
-  const posts = data.allMarkdownRemark.nodes
+  const markdownPosts = data.allMarkdownRemark.nodes
+  const contentfulPosts = data.allContentfulBlogPost.nodes
+  console.log(contentfulPosts)
+
+  const posts = [...markdownPosts, ...contentfulPosts].sort((a, b) => {
+    const dateA = new Date(a.date || a.frontmatter.date || a.createdAt)
+    const dateB = new Date(b.date || b.frontmatter.date || b.createdAt)
+    return dateB - dateA
+  })
+
   const siteTitle = `All Blog posts`
 
   if (!posts || posts.length === 0) {
@@ -33,21 +43,10 @@ const BlogIndex = ({ data, location }) => {
       noContainer
       preMain={
         <PreMain additionalClasses="breadcrumbs">
-          <nav className="breadcrumb is-medium" aria-label="breadcrumbs">
-            <ul>
-              <li>
-                <Link to="/">
-                  <span className="icon is-small">
-                    <FontAwesomeIcon icon={faHome} />
-                  </span>
-                  Home
-                </Link>
-              </li>
-              <li className="is-active" aria-current="page">
-                <span>Blog</span>
-              </li>
-            </ul>
-          </nav>
+          <BreadCrumbs crumbs={[
+            {path: "/", label: "Home", icon: faHome},
+            {label: "Blog", isCurrent: true},
+          ]}/>
         </PreMain>
       }
     >
@@ -55,7 +54,7 @@ const BlogIndex = ({ data, location }) => {
       <div className="container py-3">
         <h1 className="title is-2">{"Blog Posts"}</h1>
         {posts.map(post => (
-          <PostEntry key={post.fields.uniqueid} post={post} />
+          <PostEntry key={post.fields?.uniqueid || post.slug} post={post} />
         ))}
       </div>
     </Layout>
@@ -100,6 +99,23 @@ export const pageQuery = graphql`
           }
           date(formatString: "MMMM DD, YYYY")
           formatdate: date(formatString: "YYYY-MM-DD")
+        }
+      }
+    }
+    allContentfulBlogPost(sort: {createdAt: DESC}) {
+      totalCount
+      nodes {
+        title
+        updatedAt
+        tags
+        slug
+        description {
+          description
+        }
+        date: createdAt(formatString: "MMMM DD, YYYY")
+        formatdate: createdAt(formatString: "YYYY-MM-DD")
+        featuredImage {
+          gatsbyImageData(layout: FIXED, width: 400)
         }
       }
     }
