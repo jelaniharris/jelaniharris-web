@@ -7,7 +7,7 @@ import Seo from "../components/seo"
 import Masonry from "react-masonry-css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faComment, faEnvelope } from "@fortawesome/free-solid-svg-icons"
+import { faComment, faNewspaper } from "@fortawesome/free-solid-svg-icons"
 
 import HeroMe from "../components/home/hero-me"
 import HeroTechnologies from "../components/home/hero-technologies"
@@ -44,8 +44,8 @@ const SiteIndex = ({ data, location }) => {
 
   const BlogPost = ({ content, type }) => {
     const cardHeaderClass = type === 'blog' ? 'card-header-blog' : 'card-header-post'
-    const cardHeaderTitle = type === 'blog' ? 'Blog' : 'Post'
-    const cardHeaderIcon = type === 'blog' ? faComment : faEnvelope
+    const cardHeaderTitle = type === 'blog' ? 'Article' : 'Blog'
+    const cardHeaderIcon = type === 'blog' ? faNewspaper : faComment
     return (
       <div key={`blog-${content.slug}`}>
         <article itemScope itemType="http://schema.org/Article">
