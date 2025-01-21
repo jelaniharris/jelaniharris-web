@@ -21,12 +21,12 @@ const BlogIndex = ({ data, location }) => {
     return dateB - dateA
   })
 
-  const siteTitle = `All Blog posts`
+  const siteTitle = `All Article & Blog posts`
 
   if (!posts || posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <Seo title="All blog posts" />
+        <Seo title="All article & blog posts" />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -45,14 +45,14 @@ const BlogIndex = ({ data, location }) => {
         <PreMain additionalClasses="breadcrumbs">
           <BreadCrumbs crumbs={[
             {path: "/", label: "Home", icon: faHome},
-            {label: "Blog", isCurrent: true},
+            {label: "Articles & Blogs", isCurrent: true},
           ]}/>
         </PreMain>
       }
     >
-      <Seo title="All blog posts" />
+      <Seo title="All article & blog posts" />
       <div className="container py-3">
-        <h1 className="title is-2">{"Blog Posts"}</h1>
+        <h1 className="title is-2">{"Article & Blog Posts"}</h1>
         {posts.map(post => (
           <PostEntry key={post.fields?.uniqueid || post.slug} post={post} />
         ))}
