@@ -9,6 +9,7 @@ import PreMain from "../components/premain"
 import {
   faComment,
   faHome,
+  faNewspaper,
 } from "@fortawesome/free-solid-svg-icons"
 
 import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image"
@@ -46,13 +47,13 @@ const BlogPostTemplate = ({ data, location }) => {
         noContainer
         preMain={
           <PreMain additionalClasses="breadcrumbs">
-            <BreadCrumbs crumbs={
-              [
-                {path: "/", label: 'Home', icon: faHome},
-                {path: "/blog", label: 'Blog', icon: faComment},
-                {label: post.frontmatter.title, isCurrent: true},
-              ]
-            }  />  
+            <BreadCrumbs
+              crumbs={[
+                { path: "/", label: "Home", icon: faHome },
+                { path: "/blog", label: "Articles & Blogs", icon: faNewspaper },
+                { label: post.frontmatter.title, isCurrent: true },
+              ]}
+            />
           </PreMain>
         }
       >
@@ -96,9 +97,21 @@ const BlogPostTemplate = ({ data, location }) => {
             itemScope
             itemType="http://schema.org/Article"
           >
-            <BlogHeader title={post.frontmatter.title} date={post.frontmatter.date} formattedDate={post.frontmatter.formatdate} tags={tags} url={url} />
+            <BlogHeader
+              title={post.frontmatter.title}
+              date={post.frontmatter.date}
+              formattedDate={post.frontmatter.formatdate}
+              tags={tags}
+              url={url}
+            />
             <BlogDraftIndicator post={post} />
-            <BlogFeaturedImage siteUrl={data.site.siteMetadata.siteUrl} originalImage={originalImage} featuredImgFluid={featuredImgFluid} featuredAlt={featuredAlt} featuredAltUrl={featuredAltUrl} />
+            <BlogFeaturedImage
+              siteUrl={data.site.siteMetadata.siteUrl}
+              originalImage={originalImage}
+              featuredImgFluid={featuredImgFluid}
+              featuredAlt={featuredAlt}
+              featuredAltUrl={featuredAltUrl}
+            />
             <BlogContent post={post} />
             <hr />
             <section id="blog-series">
@@ -113,15 +126,18 @@ const BlogPostTemplate = ({ data, location }) => {
             </footer>
           </article>
 
-          <BlogBottomNav previous={{
-            slug: previous?.fields.slug,
-            title: previous?.frontmatter.title,
-            featuredImage: previous?.frontmatter.featuredImage,
-          }} next={{
-            slug: next?.fields.slug,
-            title: next?.frontmatter.title,
-            featuredImage: next?.frontmatter.featuredImage,
-          }} />
+          <BlogBottomNav
+            previous={{
+              slug: previous?.fields.slug,
+              title: previous?.frontmatter.title,
+              featuredImage: previous?.frontmatter.featuredImage,
+            }}
+            next={{
+              slug: next?.fields.slug,
+              title: next?.frontmatter.title,
+              featuredImage: next?.frontmatter.featuredImage,
+            }}
+          />
         </div>
         <BlogComments post={post} url={url} />
       </Layout>
