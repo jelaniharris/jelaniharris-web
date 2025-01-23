@@ -46,7 +46,7 @@ const PostPostTemplate = ({ data, location }) => {
             <BreadCrumbs
               crumbs={[
                 { path: "/", label: "Home", icon: faHome },
-                { path: "/blog", label: "Post", icon: faComment },
+                { path: "/blog", label: "Articles & Blogs", icon: faComment },
                 { label: post.title, isCurrent: true },
               ]}
             />
