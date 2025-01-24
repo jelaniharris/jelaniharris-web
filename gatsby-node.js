@@ -87,6 +87,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
   const blogTag = path.resolve(`./src/templates/blog-tag.js`)
 
+  const postPost = path.resolve(`./src/templates/post-post.js`)
+
   // Get all markdown blog posts sorted by date
   const result = await graphql(
     `
@@ -103,6 +105,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               released
             }
             frontmatter {
+              date
               series {
                 id
                 title
@@ -113,6 +116,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               }
               seriesOrder
             }
+          }
+        }
+        allContentfulBlogPost(sort: { createdAt: ASC }, limit: 1000) {
+          nodes {
+            id
+            fields {
+              slug
+            }
+            date: createdAt
           }
         }
         tagsGroup: allMarkdownRemark(
@@ -135,7 +147,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
-  const posts = result.data.allMarkdownRemark.nodes
+  const markdownPosts = result.data.allMarkdownRemark.nodes
+  const contentfulPosts = result.data.allContentfulBlogPost.nodes
+
+  const posts = [...markdownPosts, ...contentfulPosts]
+    .map(post => {
+      return {
+        id: post.id,
+        slug: post.fields.slug,
+        frontmatter: post.frontmatter,
+        postType: post.frontmatter ? "markdown" : "contentful",
+        date: post.date ?? post.frontmatter.date,
+      }
+    })
+    .sort((a, b) => b.date - a.date)
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -149,6 +174,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
         // If a series exist
         if (
+          post.frontmatter &&
           post.frontmatter.series &&
           post.frontmatter.series.slug &&
           seriesData.has(post.frontmatter.series.slug)
@@ -172,8 +198,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           index === posts.length - 1 ? null : posts[index + 1].id
 
         return createPage({
-          path: post.fields.slug,
-          component: blogPost,
+          path: post.slug,
+          component: post.postType === "markdown" ? blogPost : postPost,
           context: {
             id: post.id,
             previousPostId,
@@ -202,6 +228,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField, create } = actions
   const MD_TYPE = "MarkdownRemark"
+  const CONTENTFUL_TYPE = "ContentfulBlogPost"
   const forcePublish = process.env.NODE_ENV === "development"
 
   if (node.internal.type === MD_TYPE) {
@@ -241,6 +268,24 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: `released`,
       node,
       value: isReleased,
+    })
+  } else if (node.internal.type === CONTENTFUL_TYPE) {
+    createNodeField({
+      name: `slug`,
+      node,
+      value: `/blog/${node.slug}`,
+    })
+
+    createNodeField({
+      name: `uniqueid`,
+      node,
+      value: node.slug,
+    })
+
+    createNodeField({
+      name: `released`,
+      node,
+      value: true,
     })
   }
 }
@@ -320,6 +365,23 @@ exports.createSchemaCustomization = ({ actions }) => {
     type Fields {
       slug: String
       released: Boolean @defaultFalse
+    }
+
+    type ContentfulBlogPostContentTextNode {
+      raw: String
+    }
+
+    type ContentfulBlogPost implements Node @Infer {
+      title: String
+      slug: String
+      createdAt: Date @dateformat
+      updatedAt: Date @dateformat
+      modified_date: Date @dateformat
+      content: ContentfulBlogPostContentTextNode
+      tags: [String]
+      featuredAlt: String
+      featuredAltUrl: String
+      fields: Fields
     }
   `)
 }
