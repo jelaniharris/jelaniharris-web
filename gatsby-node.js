@@ -88,6 +88,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const blogTag = path.resolve(`./src/templates/blog-tag.js`)
 
   const postPost = path.resolve(`./src/templates/post-post.js`)
+  const postTag = path.resolve(`./src/templates/post-tag.js`)
 
   // Get all markdown blog posts sorted by date
   const result = await graphql(
@@ -127,11 +128,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             date: createdAt
           }
         }
-        tagsGroup: allMarkdownRemark(
+        markdownTagsGroup: allMarkdownRemark(
           filter: { fields: { released: { eq: true } } }
           limit: 2000
         ) {
           group(field: { frontmatter: { tags: SELECT } }) {
+            fieldValue
+          }
+        }
+        contentfulTagsGroup: allContentfulBlogPost(
+          limit: 2000
+        ) {
+          group(field: { tags: SELECT }) {
             fieldValue
           }
         }
@@ -213,11 +221,23 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Create blog tag pages
-  const tags = result.data.tagsGroup.group
-  tags.forEach(tag => {
+  const articleTags = result.data.markdownTagsGroup.group
+  const blogTags = result.data.contentfulTagsGroup.group
+
+  articleTags.forEach(tag => {
     createPage({
       path: `/blog/tag/${_.kebabCase(tag.fieldValue)}/`,
       component: blogTag,
+      context: {
+        tag: tag.fieldValue,
+      },
+    })
+  })
+
+  blogTags.forEach(tag => {
+    createPage({
+      path: `/blog/tag/${_.kebabCase(tag.fieldValue)}/`,
+      component: postTag,
       context: {
         tag: tag.fieldValue,
       },

@@ -10,13 +10,13 @@ import PreMain from "../components/premain"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHome } from "@fortawesome/free-solid-svg-icons"
 
-const BlogTagTemplate = ({ data, pageContext, location }) => {
+const PostTagTemplate = ({ data, pageContext, location }) => {
   const { tag } = pageContext
-  const { nodes: posts, totalCount } = data.allMarkdownRemark
-  const tagHeader = `${totalCount} article${
+  const { nodes: posts, totalCount } = data.allContentfulBlogPost
+  const tagHeader = `${totalCount} post${
     totalCount === 1 ? "" : "s"
   } tagged with "${tag}"`
-  const siteTitle = `Articles tagged with ${tag}`
+  const siteTitle = `Blog posts tagged with ${tag}`
 
   return (
     <Layout
@@ -60,8 +60,8 @@ const BlogTagTemplate = ({ data, pageContext, location }) => {
       }
     >
       <Seo
-        title={`Articles tagged with ${tag}`}
-        description={`Here are all of the articles tagged with ${tag}`}
+        title={`Posts tagged with ${tag}`}
+        description={`Here are all of the blog posts tagged with ${tag}`}
         canonical={`${data.site.siteMetadata.siteUrl}/blog/tag/${tag}`}
       />
       <div className="container py-3">
@@ -74,7 +74,7 @@ const BlogTagTemplate = ({ data, pageContext, location }) => {
   )
 }
 
-export default BlogTagTemplate
+export default PostTagTemplate
 
 export const pageQuery = graphql`
   query ($tag: String) {
@@ -88,35 +88,30 @@ export const pageQuery = graphql`
         }
       }
     }
-    allMarkdownRemark(
+    allContentfulBlogPost(
       limit: 2000
-      sort: { frontmatter: { date: DESC } }
+      sort: { createdAt: DESC }
       filter: {
-        frontmatter: { tags: { in: [$tag] } }
-        fields: { released: { eq: true } }
+        tags: { in: [$tag] } 
       }
     ) {
       totalCount
       nodes {
-        excerpt(pruneLength: 270)
+
         fields {
           uniqueid
           slug
-          released
         }
-        frontmatter {
           title
           tags
+        description {
           description
-          draft
-          featuredImage {
-            childImageSharp {
-              gatsbyImageData(layout: FIXED, width: 400)
-            }
-          }
-          date(formatString: "MMMM DD, YYYY")
-          formatdate: date(formatString: "YYYY-MM-DD")
         }
+        featuredImage {
+          gatsbyImageData(layout: FIXED, width: 400)
+        }
+        date: createdAt(formatString: "MMMM DD, YYYY")
+        formatdate: createdAt(formatString: "YYYY-MM-DD")
       }
     }
   }
