@@ -19,14 +19,6 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
     {
-      resolve: `gatsby-source-contentful`,
-      options: {
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
-        accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-        host: process.env.CONTENTFUL_HOST_URL,
-      },
-    },
-    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `content`,
@@ -60,6 +52,14 @@ module.exports = {
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
+      },
+    },
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+        host: process.env.CONTENTFUL_HOST_URL,
       },
     },
     `gatsby-transformer-sharp`,
