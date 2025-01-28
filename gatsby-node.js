@@ -252,6 +252,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const forcePublish = process.env.NODE_ENV === "development"
 
   if (node.internal.type === MD_TYPE) {
+    // Sometimes, contentful nodes think they're markdown files
+    // So we check for the filepath to make sure it's a markdown file
+    if (!node.fileAbsolutePath) {
+      return
+    }
+    
     const slug = createFilePath({ node, getNode })
     // /blog/2022-09-27_creating-pwa-nextjs
 
