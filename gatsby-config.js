@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config()
 
 module.exports = {
   siteMetadata: {
@@ -8,7 +8,7 @@ module.exports = {
       summary: `who lives and works in Wisconsin building useful things, and thinks that pineapple on pizza is okay.`,
     },
     description: `A place of all things Jelani Harris`,
-    keywords: ['programming', 'coding', 'developer', 'full-stack'],
+    keywords: ["programming", "coding", "developer", "full-stack"],
     siteUrl: `https://jelaniharris.com`,
     imageUrl: `/static/images/logo.png`,
     social: {
@@ -94,30 +94,48 @@ module.exports = {
                 }
               }
             }
+            allContentfulBlogPost(
+              sort: {createdAt: DESC}
+            ) {
+              nodes {
+                id
+                fields {
+                  slug
+                }
+                createdAt
+              }
+            }
           }
         `,
-        resolveSiteUrl: () => 'https://jelaniharris.com',
+        resolveSiteUrl: () => "https://jelaniharris.com",
         resolvePages: ({
           allSitePage: { nodes: allPages },
           allMarkdownRemark: { nodes: allPosts },
+          allContentfulBlogPost: { nodes: allContentfulPosts },
         }) => {
-
-          let pages = [];
+          let pages = []
 
           allPages.map(page => {
             pages.push({
               path: page.path,
             })
-          });
+          })
 
           allPosts.map(post => {
             pages.push({
               path: post.fields.slug,
-              date: post.frontmatter.date
+              date: post.frontmatter.date,
             })
-          });
+          })
 
-          return pages;
+          allContentfulPosts.map(post => {
+            pages.push({
+              path: post.fields.slug,
+              date: post.createdAt,
+            })
+          })
+
+          return pages
 
           /*const wpNodeMap = allMarkdownRemark.reduce((acc, node) => {
             const { uri } = node.fields.slug
@@ -133,20 +151,20 @@ module.exports = {
         serialize: ({ path, date }) => {
           let entry = {
             url: path,
-            changefreq: 'weekly',
-            priority: 0.5
-          };
-
-          if (date) {
-            entry.priority = 0.7;
-            entry.lastmod = date;
+            changefreq: "weekly",
+            priority: 0.5,
           }
 
-          return entry;
+          if (date) {
+            entry.priority = 0.7
+            entry.lastmod = date
+          }
+
+          return entry
         },
-      }
+      },
     },
-    
+
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
@@ -232,29 +250,27 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         implementation: require("sass"),
-      }
+      },
     },
     {
-      resolve: 'gatsby-plugin-htaccess',
+      resolve: "gatsby-plugin-htaccess",
       options: {
         RewriteBase: true,
         https: true,
         www: false,
         SymLinksIfOwnerMatch: true,
-        host: 'jelaniharris.com', // if 'www' is set to 'false', be sure to also remove it here!
+        host: "jelaniharris.com", // if 'www' is set to 'false', be sure to also remove it here!
         ErrorDocument: `
           ErrorDocument 404 /404
         `,
-        redirect: [
-          'RewriteRule ^[0-9]+/(.*)$ /blog/$1 [R=301,L,NE]',
-        ],
+        redirect: ["RewriteRule ^[0-9]+/(.*)$ /blog/$1 [R=301,L,NE]"],
       },
     },
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
-        shortname: `jelani-harris`
-      }
+        shortname: `jelani-harris`,
+      },
     },
     {
       resolve: `gatsby-plugin-google-gtag`,
@@ -266,7 +282,7 @@ module.exports = {
         // This object gets passed directly to the gtag config command
         // This config will be shared across all trackingIds
         gtagConfig: {
-          optimize_id: 'OPT_CONTAINER_ID',
+          optimize_id: "OPT_CONTAINER_ID",
           anonymize_ip: true,
           cookie_expires: 0,
         },
@@ -277,7 +293,7 @@ module.exports = {
           // Setting this parameter is also optional
           respectDNT: true,
           // Avoids sending pageview hits from custom paths
-          exclude: ['/preview/**', '/do-not-track/me/too/'],
+          exclude: ["/preview/**", "/do-not-track/me/too/"],
         },
       },
     },
