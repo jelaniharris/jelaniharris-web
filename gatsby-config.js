@@ -1,3 +1,5 @@
+const { documentToHtmlString } = require("@contentful/rich-text-html-renderer")
+
 require("dotenv").config()
 
 module.exports = {
@@ -174,6 +176,21 @@ module.exports = {
     {
       resolve: `gatsby-plugin-feed`,
       options: {
+        setup: ({ query: { site } }, options) => ({
+          ...options,
+          title: `${site.siteMetadata.title} Blog: RSS Feed`,
+          description: site.siteMetadata.description,
+          site_url: site.siteMetadata.siteUrl,
+          feed_url: `${site.siteMetadata.siteUrl}/rss.xml`,
+          image_url: `${site.siteMetadata.siteUrl}/static/logo.png`,
+          managingEditor: site.siteMetadata.author.name,
+          webMaster: site.siteMetadata.author.name,
+          copyright: `©2008 - ${new Date().getFullYear()} ${
+            site.siteMetadata.title
+          }, All Rights Reserved.`,
+          language: `en`,
+          generator: `GatsbyJS`,
+        }),
         query: `
           {
             site {
@@ -188,16 +205,42 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map(node => {
-                return Object.assign({}, node.frontmatter, {
+            serialize: ({
+              query: { site, allMarkdownRemark, allContentfulBlogPost },
+            }) => {
+              const allContent = []
+
+              allMarkdownRemark.nodes.map(node => {
+                allContent.push({
+                  title: node.title,
+                  author: site.siteMetadata.author.name,
+                  description: node.description?.description,
+                  date: node.date,
+                  url: site.siteMetadata.siteUrl + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  custom_elements: [
+                    {
+                      "content:encoded": documentToHtmlString(JSON.parse(node.content.raw)),
+                    },
+                  ],
+                })
+              })
+
+              allContent.push(
+                Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
                   custom_elements: [{ "content:encoded": node.html }],
                 })
-              })
+              )
+
+              return allContent
+                .sort(a, b => b.date - a.date)
+                .map(content => {
+                  return Object.assign({}, content)
+                })
             },
             query: `
               {
@@ -216,6 +259,18 @@ module.exports = {
                       title
                       date
                     }
+                  }
+                }
+                allContentfulBlogPost(
+                  sort: {createdAt: DESC}
+                ) {
+                  nodes {
+                    description
+                    fields {
+                      slug
+                    }
+                    title
+                    createdAt
                   }
                 }
               }
