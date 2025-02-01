@@ -190,6 +190,29 @@ module.exports = {
           }, All Rights Reserved.`,
           language: `en`,
           generator: `GatsbyJS`,
+          custom_namespaces: {
+            webfeeds: 'http://webfeeds.org/rss/1.0',
+          },
+          custom_elements: [
+            {
+              'webfeeds:cover': {
+                _attr: {
+                  image: `${site.siteMetadata.siteUrl}${site.siteMetadata.imageUrl}`,
+                },
+              },
+            },
+            { 'webfeeds:icon': `${site.siteMetadata.siteUrl}/static/favicon.png` },
+            { 'webfeeds:logo': `${site.siteMetadata.siteUrl}/static/favicon.png` },
+            { 'webfeeds:accentColor': '1abc9c' },
+            {
+              'webfeeds:related': {
+                _attr: {
+                  layout: 'card',
+                  target: 'browser',
+                },
+              },
+            },
+          ],
         }),
         query: `
           {
