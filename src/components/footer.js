@@ -6,7 +6,25 @@ import SocialIcons from "./social-icons"
 const Footer = () => {
   const data = useStaticQuery(graphql`
     query {
-      recentPosts: allMarkdownRemark(
+      recentContentfulPosts: allContentfulBlogPost(
+        sort: { createdAt: DESC }
+        limit: 4
+      ) {
+        nodes {
+          fields {
+            slug
+          }
+          title
+          date: createdAt(formatString: "MMMM DD, YYYY")
+          description {
+            description
+          }
+          featuredImage {
+            gatsbyImageData(width: 75, placeholder: BLURRED, formats: [AUTO])
+          }
+        }
+      }
+      recentMarkdownPosts: allMarkdownRemark(
         sort: { frontmatter: { date: DESC } }
         filter: { fields: { released: { eq: true } } }
         limit: 4
@@ -52,7 +70,8 @@ const Footer = () => {
     }
   `)
 
-  const nodes = data.recentPosts.nodes
+  const markdownNodes = data.recentMarkdownPosts.nodes
+  const contentfulNodes = data.recentContentfulPosts.nodes
   const upcomingNodes = data.upcomingPosts.nodes
 
   const OtherThings = () => {
@@ -61,15 +80,17 @@ const Footer = () => {
         <h3 className="title is-3 my-5">Other Places</h3>
         <div className="upcoming-posts is-flex is-flex-direction-row is-flex-wrap-wrap">
           <ul>
-            <li><Link to="/site-attributions">Site Attributions</Link></li>
+            <li>
+              <Link to="/site-attributions">Site Attributions</Link>
+            </li>
           </ul>
         </div>
       </>
     )
   }
 
-  const UpcomingPosts = ({ posts }) => {
-    const renderPostTitle = postData => {
+  const UpcomingArticles = ({ posts }) => {
+    const renderArticleTitle = postData => {
       let seriesLabel = ""
       if (postData.frontmatter.series && postData.frontmatter.series.title) {
         seriesLabel = `(${postData.frontmatter.series.title}) `
@@ -87,23 +108,25 @@ const Footer = () => {
 
     return (
       <div className="column is-one-third-tablet">
-        <h3 className="title is-3">Upcoming Posts</h3>
+        <h3 className="title is-3">Upcoming Articles</h3>
         <div className="upcoming-posts is-flex is-flex-direction-row is-flex-wrap-wrap">
-          <ul>{posts.map(post => renderPostTitle(post))}</ul>
+          <ul>{posts.map(post => renderArticleTitle(post))}</ul>
         </div>
         <OtherThings />
       </div>
     )
   }
 
-  const RecentPosts = ({ posts }) => {
+  const RecentBlogOrArticlePosts = ({ posts }) => {
     if (posts.length === 0) {
       return <></>
     }
 
     const renderPost = postData => {
       const featuredImgThumbail =
-        getImage(postData.frontmatter.featuredImage) || null
+        getImage(
+          postData.featuredImage ?? postData.frontmatter.featuredImage
+        ) || null
       let ImageElement
       if (featuredImgThumbail) {
         ImageElement = (
@@ -130,12 +153,16 @@ const Footer = () => {
             <figure className="media-left">{ImageElement}</figure>
             <div className="media-content">
               <Link className="is-size-5" to={postData.fields.slug}>
-                {postData.frontmatter.title}
+                {postData.title ?? postData.frontmatter.title}
               </Link>
               <p className="is-size-6">
-                {postData.frontmatter.description || postData.excerpt}
+                {postData.description?.description ??
+                  postData.frontmatter.description ??
+                  postData.excerpt}
               </p>
-              <p className="is-size-6">{postData.frontmatter.date}</p>
+              <p className="is-size-6">
+                {postData.date ?? postData.frontmatter.date}
+              </p>
             </div>
           </div>
         </div>
@@ -152,13 +179,20 @@ const Footer = () => {
     )
   }
 
+  const sortedNodes = [...markdownNodes, ...contentfulNodes].sort((a, b) => {
+    return (
+      new Date(b.date ?? b.frontmatter?.date) -
+      new Date(a.date ?? a.frontmatter?.date)
+    )
+  })
+
   return (
     <footer className="page-footer">
       <div className="pre-footer py-3">
         <section className="container">
           <div className="columns">
-            <RecentPosts posts={nodes} />
-            <UpcomingPosts posts={upcomingNodes} />
+            <RecentBlogOrArticlePosts posts={sortedNodes} />
+            <UpcomingArticles posts={upcomingNodes} />
           </div>
         </section>
       </div>

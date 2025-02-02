@@ -13,7 +13,6 @@ import BreadCrumbs from "../components/common/BreadCrumbs"
 const BlogIndex = ({ data, location }) => {
   const markdownPosts = data.allMarkdownRemark.nodes
   const contentfulPosts = data.allContentfulBlogPost.nodes
-  console.log(contentfulPosts)
 
   const posts = [...markdownPosts, ...contentfulPosts].sort((a, b) => {
     const dateA = new Date(a.date || a.frontmatter.date || a.createdAt)
