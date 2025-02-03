@@ -18,14 +18,17 @@ const PostPostTemplate = ({ data, location }) => {
   const post = data.contentfulBlogPost || data.markdownRemark
   const title = post.title || post.frontmatter.title || "Blog Post"
   const description =
-    post.description?.description || post.frontmatter.description || post.excerpt
+    post.description?.description ||
+    post.frontmatter.description ||
+    post.excerpt
   const siteTitle = `${title} | ${data.site.siteMetadata.title}`
   const slug = post.fields.slug
   let featuredImgFluid = getImage(
     post.featuredImage || post.frontmatter.featuredImage
   )
   const featuredAlt = post.featuredAlt || post.frontmatter.featuredAlt || null
-  const featuredAltUrl = post.featuredAltUrl || post.frontmatter.featuredAltUrl || null
+  const featuredAltUrl =
+    post.featuredAltUrl || post.frontmatter.featuredAltUrl || null
   let originalImage = getSrc(
     post.featuredImage || post.frontmatter.featuredImage
   )
@@ -112,15 +115,18 @@ const PostPostTemplate = ({ data, location }) => {
               <Bio />
             </footer>
           </article>
-          <BlogBottomNav previous={{
-            slug: previous?.fields.slug,
-            title: previous?.frontmatter.title,
-            featuredImage: previous?.frontmatter.featuredImage,
-          }} next={{
-            slug: next?.fields.slug,
-            title: next?.frontmatter.title,
-            featuredImage: next?.frontmatter.featuredImage,
-          }} />
+          <BlogBottomNav
+            previous={{
+              slug: previous?.fields.slug,
+              title: previous?.frontmatter.title,
+              featuredImage: previous?.frontmatter.featuredImage,
+            }}
+            next={{
+              slug: next?.fields.slug,
+              title: next?.frontmatter.title,
+              featuredImage: next?.frontmatter.featuredImage,
+            }}
+          />
         </div>
         <BlogComments post={post} url={url} />
       </Layout>
@@ -155,6 +161,22 @@ export const pageQuery = graphql`
       }
       content {
         raw
+        references {
+          ... on Node {
+            ... on ContentfulAsset {
+              contentful_id
+              __typename
+              gatsbyImageData(formats: AUTO, layout: FULL_WIDTH)
+              mimeType
+              title
+              file {
+                contentType
+                fileName
+                url
+              }
+            }
+          }
+        }
       }
       date: createdAt(formatString: "MMMM DD, YYYY")
       formatdate: createdAt(formatString: "YYYY-MM-DD")
