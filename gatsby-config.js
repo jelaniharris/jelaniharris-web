@@ -7,7 +7,7 @@ module.exports = {
     title: `Jelani Harris`,
     author: {
       name: `Jelani Harris`,
-      summary: `who lives and works in Wisconsin building useful things, and thinks that pineapple on pizza is okay.`,
+      summary: `who lives and works in Wisconsin building useful things, and thinks that pineapple on pizza is an acceptable choice.`,
     },
     description: `A place of all things Jelani Harris`,
     keywords: ["programming", "coding", "developer", "full-stack"],
@@ -62,7 +62,6 @@ module.exports = {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_KEY,
         host: process.env.CONTENTFUL_HOST_URL,
-        forceFullSync: true,
       },
     },
     `gatsby-transformer-sharp`,
@@ -192,24 +191,28 @@ module.exports = {
           language: `en`,
           generator: `GatsbyJS`,
           custom_namespaces: {
-            webfeeds: 'http://webfeeds.org/rss/1.0',
+            webfeeds: "http://webfeeds.org/rss/1.0",
           },
           custom_elements: [
             {
-              'webfeeds:cover': {
+              "webfeeds:cover": {
                 _attr: {
                   image: `${site.siteMetadata.siteUrl}${site.siteMetadata.imageUrl}`,
                 },
               },
             },
-            { 'webfeeds:icon': `${site.siteMetadata.siteUrl}/static/favicon.png` },
-            { 'webfeeds:logo': `${site.siteMetadata.siteUrl}/static/favicon.png` },
-            { 'webfeeds:accentColor': '1abc9c' },
             {
-              'webfeeds:related': {
+              "webfeeds:icon": `${site.siteMetadata.siteUrl}/static/favicon.png`,
+            },
+            {
+              "webfeeds:logo": `${site.siteMetadata.siteUrl}/static/favicon.png`,
+            },
+            { "webfeeds:accentColor": "1abc9c" },
+            {
+              "webfeeds:related": {
                 _attr: {
-                  layout: 'card',
-                  target: 'browser',
+                  layout: "card",
+                  target: "browser",
                 },
               },
             },
@@ -222,7 +225,11 @@ module.exports = {
                 title
                 description
                 siteUrl
+                imageUrl
                 site_url: siteUrl
+                author {
+                  name
+                }
               }
             }
           }
@@ -234,42 +241,44 @@ module.exports = {
             }) => {
               const allContent = []
 
-              allMarkdownRemark.nodes.map(node => {
+              
+              allContentfulBlogPost.nodes.forEach(node => {
                 allContent.push({
                   title: node.title,
                   author: site.siteMetadata.author.name,
-                  description: node.description?.description,
+                  description: node.description?.description ?? '',
                   date: node.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
                   custom_elements: [
                     {
-                      "content:encoded": documentToHtmlString(JSON.parse(node.content.raw)),
+                      "content:encoded": documentToHtmlString(
+                        JSON.parse(node.content.raw)
+                      ),
                     },
                   ],
                 })
               })
 
-              allContent.push(
-                Object.assign({}, node.frontmatter, {
-                  description: node.excerpt,
-                  date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ "content:encoded": node.html }],
-                })
-              )
+              allMarkdownRemark.nodes.forEach(node => {
+                allContent.push(
+                  Object.assign({}, node.frontmatter, {
+                    description: node.excerpt,
+                    date: node.frontmatter.date,
+                    url: site.siteMetadata.siteUrl + node.fields.slug,
+                    guid: site.siteMetadata.siteUrl + node.fields.slug,
+                    custom_elements: [{ "content:encoded": node.html }],
+                  })
+                )
+              })
 
               return allContent
-                .sort(a, b => b.date - a.date)
-                .map(content => {
-                  return Object.assign({}, content)
-                })
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
             },
             query: `
               {
                 allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
+                  sort: {frontmatter: {date: DESC}}
                   filter: { fields: { released: {eq: true}}}
                 ) {
                   nodes {
@@ -289,11 +298,17 @@ module.exports = {
                   sort: {createdAt: DESC}
                 ) {
                   nodes {
-                    description
+                    description {
+                      description
+                    }
                     fields {
                       slug
                     }
+                    content {
+                      raw
+                    }
                     title
+                    date: createdAt
                     createdAt
                   }
                 }
