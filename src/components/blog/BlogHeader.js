@@ -8,7 +8,7 @@ import ShowTags from '../common/showTags';
 const BlogHeader = ({ title, date, formattedDate, tags, url }) => {
   return (
   <header className="mb-5 pb-3">
-  <h1 className="title is-1" itemProp="headline">
+  <h1 className="title is-1 pb-2" itemProp="headline">
     {title}
   </h1>
   <div className="subtitle is-5 ml-1 is-flex is-justify-content-space-between">
