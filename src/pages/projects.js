@@ -16,8 +16,19 @@ import BanditRevolersImage from "../images/projects/banditrevolvers-screenshot.p
 const Projects = ({ data, location }) => {
   const bakieProjectImages = data ? data.bakie.nodes : null
   let smarterProjectImages = data ? data.smarter.nodes : null
+  const towerProjectImages = data ? data.tower.nodes : null
   let bakieImages = []
   let smarterImages = []
+  let towerOfGreedImages = []
+
+  if (towerProjectImages) {
+    towerOfGreedImages = towerProjectImages.map(img => {
+      return {
+        original: `${img.publicURL}`,
+        thumbnail: `${getSrc(img.childImageSharp)}`,
+      }
+    })
+  }
 
   if (bakieProjectImages) {
     const bakieDataDescription = {
@@ -120,6 +131,30 @@ const Projects = ({ data, location }) => {
             So please keep in mind that some of these projects are old. Very
             old.
           </p>
+        </div>
+        <div className="box">
+          <h3 className="title is-3">Tower of Greed (2023-2024)</h3>
+          <TechStack values={"ReactJs, Next.Js, Three.Js, MongoDb, Vercel"} />
+          <ImageGallery items={towerOfGreedImages} lazyLoad />
+          <p>
+            <strong>Tower of greed</strong> objective was to get a better
+            understanding of how to create a 3D game using Three.Js and React.
+          </p>
+          <p>
+            Tower of greed is a browser-playable procedurally generated dungeon
+            crawler. Collect the treasure on each floor and decide to leave with
+            your gains, or climb higher for more loot. Scores are saved online
+            only after each successful run.
+          </p>
+
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://tower-of-greed.vercel.app"
+            className="button is-link is-medium is-fullwidth"
+          >
+            View Site
+          </a>
         </div>
 
         <div className="box">
@@ -367,6 +402,20 @@ export const pageQuery = graphql`
     smarter: allFile(
       sort: { name: ASC }
       filter: { relativeDirectory: { eq: "projects/smarter-spreadsheets" } }
+    ) {
+      nodes {
+        id
+        publicURL
+        relativeDirectory
+        name
+        childImageSharp {
+          gatsbyImageData(layout: FIXED, width: 300)
+        }
+      }
+    }
+    tower: allFile(
+      sort: { name: ASC }
+      filter: { relativeDirectory: { eq: "projects/tower-of-greed" } }
     ) {
       nodes {
         id
