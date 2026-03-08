@@ -16,25 +16,25 @@ import BlogComments from "../components/blog/BlogComments"
 
 const PostPostTemplate = ({ data, location }) => {
   const post = data.contentfulBlogPost || data.markdownRemark
-  const title = post.title || post.frontmatter.title || "Blog Post"
+  const title = post.title || post.frontmatter?.title || "Blog Post"
   const description =
     post.description?.description ||
-    post.frontmatter.description ||
+    post.frontmatter?.description ||
     post.excerpt
   const siteTitle = `${title} | ${data.site.siteMetadata.title}`
   const slug = post.fields.slug
   let featuredImgFluid = getImage(
-    post.featuredImage || post.frontmatter.featuredImage
+    post.featuredImage || post.frontmatter?.featuredImage
   )
-  const featuredAlt = post.featuredAlt || post.frontmatter.featuredAlt || null
+  const featuredAlt = post.featuredAlt || post.frontmatter?.featuredAlt || null
   const featuredAltUrl =
-    post.featuredAltUrl || post.frontmatter.featuredAltUrl || null
+    post.featuredAltUrl || post.frontmatter?.featuredAltUrl || null
   let originalImage = getSrc(
-    post.featuredImage || post.frontmatter.featuredImage
+    post.featuredImage || post.frontmatter?.featuredImage
   )
-  const postDate = post.date || post.frontmatter.date
-  const modifiedDate = post.modified_date || post.frontmatter.modified_date
-  const tags = post.tags || post.frontmatter.tags || []
+  const postDate = post.date || post.frontmatter?.date
+  const modifiedDate = post.modified_date || post.frontmatter?.modified_date
+  const tags = post.tags || post.frontmatter?.tags || []
   const url = typeof window !== "undefined" ? window.location.href : ""
   const { previous, next } = data
 
