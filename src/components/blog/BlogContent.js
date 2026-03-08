@@ -26,6 +26,10 @@ const BlogContent = ({ post }) => {
       [MARKS.BOLD]: text => <Bold>{text}</Bold>,
       [MARKS.ITALICS]: text => <Italics>{text}</Italics>,
     },
+    renderText: text =>
+      text.split("\n").flatMap((line, i, arr) =>
+        i < arr.length - 1 ? [line, <br key={i} />] : [line]
+      ),
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
