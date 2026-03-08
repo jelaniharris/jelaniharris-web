@@ -13,6 +13,7 @@ import BlogContent from "../components/blog/BlogContent"
 import Bio from "../components/bio"
 import BlogBottomNav from "../components/blog/BlogBottomNav"
 import BlogComments from "../components/blog/BlogComments"
+import ProjectCallout from "../components/blog/ProjectCallout"
 
 const PostPostTemplate = ({ data, location }) => {
   const post = data.contentfulBlogPost || data.markdownRemark
@@ -110,6 +111,7 @@ const PostPostTemplate = ({ data, location }) => {
               featuredAltUrl={featuredAltUrl}
             />
             <BlogContent post={post} />
+            <ProjectCallout tags={tags} />
             <hr />
             <footer>
               <Bio />
